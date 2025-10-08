@@ -1,0 +1,36 @@
+{
+  "model_name": "transformer_tiny",
+  "device": "cpu",
+  "parameters": {
+    "total": 1829120,
+    "trainable": 1829120,
+    "non_embedding": 788736,
+    "embedding": 1040384
+  },
+  "flops": {
+    "flops_per_token": 786432,
+    "total_flops": 100663296,
+    "gflops": 0.100663296
+  },
+  "inference_speed": {
+    "mean_time_ms": 8.092722008004785,
+    "std_time_ms": 2.7895262712444064,
+    "min_time_ms": 5.747299990616739,
+    "max_time_ms": 18.55529996100813,
+    "throughput_tokens_per_sec": 15816.680700682771,
+    "latency_per_token_ms": 0.06322439068753738
+  },
+  "memory": {
+    "param_memory_mb": 6.9775390625,
+    "activation_memory_mb": 0,
+    "total_memory_mb": 6.9775390625,
+    "baseline_mb": 509.10546875,
+    "peak_mb": 509.10546875
+  },
+  "cpu_utilization": {
+    "mean_cpu_percent": 22.292307692307695,
+    "max_cpu_percent": 44.0,
+    "std_cpu_percent": 10.558041888565798
+  },
+  "perplexity": 13.855692863464355
+}

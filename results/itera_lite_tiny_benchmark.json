@@ -1,0 +1,36 @@
+{
+  "model_name": "itera_lite_tiny",
+  "device": "cpu",
+  "parameters": {
+    "total": 1886496,
+    "trainable": 1886496,
+    "non_embedding": 846112,
+    "embedding": 1040384
+  },
+  "flops": {
+    "flops_per_token": 327680,
+    "total_flops": 41943040,
+    "gflops": 0.04194304
+  },
+  "inference_speed": {
+    "mean_time_ms": 31.983826011419296,
+    "std_time_ms": 2.9445940755347224,
+    "min_time_ms": 28.471000026911497,
+    "max_time_ms": 39.79019995313138,
+    "throughput_tokens_per_sec": 4002.0227709561614,
+    "latency_per_token_ms": 0.24987364071421325
+  },
+  "memory": {
+    "param_memory_mb": 7.1964111328125,
+    "activation_memory_mb": 0,
+    "total_memory_mb": 7.1964111328125,
+    "baseline_mb": 458.28125,
+    "peak_mb": 458.140625
+  },
+  "cpu_utilization": {
+    "mean_cpu_percent": 14.350000000000001,
+    "max_cpu_percent": 34.9,
+    "std_cpu_percent": 9.515238973734329
+  },
+  "perplexity": 5.735900402069092
+}

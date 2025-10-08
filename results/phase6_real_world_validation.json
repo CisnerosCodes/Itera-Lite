@@ -1,0 +1,42 @@
+{
+  "timestamp": "2025-10-07T18:22:06.963332",
+  "config": {
+    "batch_size": 4,
+    "max_batches": 20,
+    "model_variants": [
+      "INT4 (Simulated)"
+    ]
+  },
+  "wikitext2": {
+    "INT4 (Simulated)": {
+      "perplexity": 1215.0332098071883,
+      "avg_loss": 7.102526688575745,
+      "total_tokens": 10240,
+      "num_batches": 20
+    }
+  },
+  "tinystories": {
+    "INT4 (Simulated)": {
+      "perplexity": 1154.1061129640552,
+      "avg_loss": 7.051081395149231,
+      "total_tokens": 10240,
+      "num_batches": 20
+    }
+  },
+  "analysis": {
+    "wikitext2": {
+      "INT4 (Simulated)": {
+        "perplexity": 1215.0332098071883,
+        "degradation_pct": 0.0,
+        "avg_loss": 7.102526688575745
+      }
+    },
+    "tinystories": {
+      "INT4 (Simulated)": {
+        "perplexity": 1154.1061129640552,
+        "degradation_pct": 0.0,
+        "avg_loss": 7.051081395149231
+      }
+    }
+  }
+}

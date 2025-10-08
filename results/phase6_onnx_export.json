@@ -1,0 +1,19 @@
+{
+  "timestamp": "2025-10-07T18:25:40.755073",
+  "export": {
+    "torchscript": "deployment\\models\\itera_lite_micro_torchscript.pt",
+    "onnx": "deployment\\models\\itera_lite_micro.onnx"
+  },
+  "benchmarks": {
+    "torchscript": {
+      "mean_latency_ms": 17.55649500642903,
+      "std_latency_ms": 3.736675003143027,
+      "throughput_samples_per_sec": 56.95897726931309
+    },
+    "onnx": {
+      "mean_latency_ms": 11.34334999951534,
+      "std_latency_ms": 3.7055979364504665,
+      "throughput_samples_per_sec": 88.15737855595802
+    }
+  }
+}

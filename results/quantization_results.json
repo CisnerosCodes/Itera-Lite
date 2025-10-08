@@ -1,0 +1,15 @@
+{
+  "original": {
+    "params": 1118496,
+    "size_mb": 4.2667236328125,
+    "flops_per_token": 327680,
+    "throughput": 10312.638928463215,
+    "perplexity": 0
+  },
+  "int8": {
+    "size_mb": 1.133941650390625,
+    "compression_ratio": 3.7627634093172215,
+    "speedup": 1.1892731856165157,
+    "time_ms": 45.84152698516846
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "model_name": "itera_lite_tiny",
+  "total_epochs": 2,
+  "total_steps": 112,
+  "best_val_loss": 1.7566487193107605,
+  "final_train_loss": 2.012623750737735,
+  "final_val_loss": 1.7443835337956746,
+  "total_training_time": 44.87997031211853
+}

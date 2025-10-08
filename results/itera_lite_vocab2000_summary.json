@@ -1,0 +1,9 @@
+{
+  "model_name": "itera_lite_vocab2000",
+  "total_epochs": 2,
+  "total_steps": 202,
+  "best_val_loss": 0.8816756389357827,
+  "final_train_loss": 0.8997654495853009,
+  "final_val_loss": 0.8816733793778853,
+  "total_training_time": 79.0872323513031
+}

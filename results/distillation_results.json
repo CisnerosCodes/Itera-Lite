@@ -1,0 +1,43 @@
+{
+  "teacher": {
+    "params": 1118496,
+    "flops_per_token": 327680,
+    "throughput": 10523.34052201873,
+    "perplexity": 0
+  },
+  "student": {
+    "params": 293656,
+    "flops_per_token": 57344,
+    "throughput": 13238.18731191552,
+    "perplexity": 0
+  },
+  "compression": {
+    "param_ratio": 3.8088647941809466,
+    "flops_ratio": 5.714285714285714,
+    "perplexity_degradation": 0
+  },
+  "training": {
+    "train_loss": [
+      123.37084145121055,
+      39.090635828452534,
+      7.6572205430210225,
+      4.820425741743334
+    ],
+    "val_loss": [
+      71.53445157137784,
+      12.012295983054422,
+      4.69392728805542,
+      4.0921243320811875
+    ],
+    "best_val_loss": 4.0921243320811875,
+    "comparison": {
+      "teacher_time_ms": 57.210915088653564,
+      "student_time_ms": 36.04097127914429,
+      "speedup": 1.5873854965101792,
+      "teacher_size_mb": 4.2667236328125,
+      "student_size_mb": 1.120208740234375,
+      "compression_ratio": 3.8088647941809466,
+      "size_reduction": 3.8088647941809466
+    }
+  }
+}

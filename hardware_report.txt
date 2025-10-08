@@ -1,0 +1,41 @@
+======================================================================
+ITERA-LITE HARDWARE CAPABILITY REPORT
+======================================================================
+
+PYTHON ENVIRONMENT
+----------------------------------------------------------------------
+Python Version: 3.13.7 (tags/v3.13.7:bcee1c3, Aug 14 2025, 14:15:11) [MSC v.1944 64 bit (AMD64)]
+Platform: Windows-11-10.0.26100-SP0
+Architecture: 64bit
+
+CPU SPECIFICATIONS
+----------------------------------------------------------------------
+Processor: 
+Architecture: AMD64
+CPU Cores: 12
+
+MEMORY SPECIFICATIONS
+----------------------------------------------------------------------
+Total RAM: Unknown
+
+PYTORCH & GPU ACCELERATION
+----------------------------------------------------------------------
+PyTorch Version: 2.8.0+cpu
+CUDA Available: False
+MPS (Apple Silicon) Available: False
+
+======================================================================
+SUITABILITY ASSESSMENT FOR ITERA-LITE
+======================================================================
+
+STRENGTHS:
+  ✓ Python 3.10+ detected
+  ✓ PyTorch installed
+
+CONCERNS/LIMITATIONS:
+  ⚠ No GPU acceleration detected - training will be CPU-only (slower)
+
+OVERALL: GOOD - System can run Itera-Lite (CPU or limited GPU)
+Recommendation: Proceed with smaller models or CPU-based prototyping
+
+======================================================================

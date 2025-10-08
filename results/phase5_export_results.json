@@ -1,0 +1,4 @@
+{
+  "torchscript": "deployment\\models\\itera_lite_micro_torchscript.pt",
+  "onnx": null
+}

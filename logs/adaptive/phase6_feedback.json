@@ -1,0 +1,56 @@
+[
+  {
+    "id": "fb_20251007_183213_0",
+    "timestamp": "2025-10-07T18:32:13.462229",
+    "input": "Hello, how are you?",
+    "output": "I'm doing well, thank you!",
+    "user_rating": 5,
+    "correctness": true,
+    "metadata": {}
+  },
+  {
+    "id": "fb_20251007_183213_1",
+    "timestamp": "2025-10-07T18:32:13.463071",
+    "input": "Test input 0",
+    "output": "Incorrect output 0",
+    "user_rating": 2,
+    "correctness": false,
+    "metadata": {}
+  },
+  {
+    "id": "fb_20251007_183213_2",
+    "timestamp": "2025-10-07T18:32:13.463525",
+    "input": "Test input 1",
+    "output": "Incorrect output 1",
+    "user_rating": 2,
+    "correctness": false,
+    "metadata": {}
+  },
+  {
+    "id": "fb_20251007_183213_3",
+    "timestamp": "2025-10-07T18:32:13.463957",
+    "input": "Test input 2",
+    "output": "Incorrect output 2",
+    "user_rating": 2,
+    "correctness": false,
+    "metadata": {}
+  },
+  {
+    "id": "fb_20251007_183213_4",
+    "timestamp": "2025-10-07T18:32:13.464280",
+    "input": "Test input 3",
+    "output": "Incorrect output 3",
+    "user_rating": 2,
+    "correctness": false,
+    "metadata": {}
+  },
+  {
+    "id": "fb_20251007_183213_5",
+    "timestamp": "2025-10-07T18:32:13.464630",
+    "input": "Test input 4",
+    "output": "Incorrect output 4",
+    "user_rating": 2,
+    "correctness": false,
+    "metadata": {}
+  }
+]

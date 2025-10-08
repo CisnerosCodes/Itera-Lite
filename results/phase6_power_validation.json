@@ -1,0 +1,116 @@
+{
+  "desktop": {
+    "INT4 (Simulated)": {
+      "platform": "desktop",
+      "num_samples": 50,
+      "seq_length": 128,
+      "energy_per_token_mj": {
+        "mean": 4.75887419417988,
+        "std": 2.2303355797729374,
+        "min": 2.6760398486658232,
+        "max": 12.914484370867285
+      },
+      "energy_per_inference_mj": {
+        "mean": 609.1358968550246,
+        "std": 285.482954210936,
+        "min": 342.5331006292254,
+        "max": 1653.0539994710125
+      },
+      "latency_ms": {
+        "mean": 36.54394400538877,
+        "std": 4.806890888657775,
+        "min": 26.348700048401952,
+        "max": 50.86319998372346
+      },
+      "cpu_utilization_percent": {
+        "mean": 6.579,
+        "std": 12.169684013975056
+      },
+      "memory_delta_mb": {
+        "mean": 0.025234375,
+        "std": 0.14035175275696818
+      },
+      "efficiency_tokens_per_joule": 210.13373314701272,
+      "model_info": {
+        "parameters": 293656,
+        "size_mb": 1.120208740234375
+      }
+    }
+  },
+  "laptop": {
+    "INT4 (Simulated)": {
+      "platform": "laptop",
+      "num_samples": 50,
+      "seq_length": 128,
+      "energy_per_token_mj": {
+        "mean": 1.0670487670306465,
+        "std": 0.2883754882355886,
+        "min": 0.7143726552385488,
+        "max": 2.0000501823760715
+      },
+      "energy_per_inference_mj": {
+        "mean": 136.58224217992276,
+        "std": 36.91206249415534,
+        "min": 91.43969987053424,
+        "max": 256.00642334413715
+      },
+      "latency_ms": {
+        "mean": 36.2843499914743,
+        "std": 3.490793417225333,
+        "min": 26.23930003028363,
+        "max": 43.81239996291697
+      },
+      "cpu_utilization_percent": {
+        "mean": 6.600999999999999,
+        "std": 8.965715197350406
+      },
+      "memory_delta_mb": {
+        "mean": 0.023828125,
+        "std": 0.13853316125599
+      },
+      "efficiency_tokens_per_joule": 937.1642898597521,
+      "model_info": {
+        "parameters": 293656,
+        "size_mb": 1.120208740234375
+      }
+    }
+  },
+  "embedded": {
+    "INT4 (Simulated)": {
+      "platform": "embedded",
+      "num_samples": 50,
+      "seq_length": 128,
+      "energy_per_token_mj": {
+        "mean": 0.3636689684352314,
+        "std": 0.13714307068934586,
+        "min": 0.2019609382841736,
+        "max": 0.907811287084769
+      },
+      "energy_per_inference_mj": {
+        "mean": 46.54962795970962,
+        "std": 17.55431304823627,
+        "min": 25.851000100374222,
+        "max": 116.19984474685043
+      },
+      "latency_ms": {
+        "mean": 35.78958800062537,
+        "std": 3.254640981740247,
+        "min": 25.851000100374222,
+        "max": 39.57720007747412
+      },
+      "cpu_utilization_percent": {
+        "mean": 7.595,
+        "std": 12.380368532479151
+      },
+      "memory_delta_mb": {
+        "mean": 0.021171875,
+        "std": 0.1367658177909072
+      },
+      "efficiency_tokens_per_joule": 2749.753448315175,
+      "model_info": {
+        "parameters": 293656,
+        "size_mb": 1.120208740234375
+      }
+    }
+  }
+}

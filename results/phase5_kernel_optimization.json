@@ -1,0 +1,34 @@
+{
+  "kernel_benchmarks": {
+    "optimized": {
+      "mean_latency_ms": 10.216974001377821,
+      "std_latency_ms": 1.2851067064141568,
+      "throughput_samples_per_sec": 97.8763379318714,
+      "speedup_vs_baseline": 0.8787882794082031
+    },
+    "parallel": {
+      "mean_latency_ms": 8.97855700342916,
+      "std_latency_ms": 2.0236026403022147,
+      "throughput_samples_per_sec": 111.37647170008191,
+      "speedup_vs_baseline": 1.0
+    },
+    "chunked": {
+      "mean_latency_ms": 10.59553999803029,
+      "std_latency_ms": 2.499384865839796,
+      "throughput_samples_per_sec": 94.37933320868025,
+      "speedup_vs_baseline": 0.8473902231597703
+    }
+  },
+  "operation_profiling": {
+    "state_transition_us": 8.71180067770183,
+    "input_projection_us": 23.13679934013635,
+    "output_projection_us": 14.334500068798661,
+    "skip_connection_us": 6.589100230485201
+  },
+  "config": {
+    "d_model": 256,
+    "d_state": 64,
+    "seq_length": 128,
+    "batch_size": 4
+  }
+}

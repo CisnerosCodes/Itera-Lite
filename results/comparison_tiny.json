@@ -1,0 +1,28 @@
+{
+  "models": [
+    "itera_lite_tiny",
+    "transformer_tiny"
+  ],
+  "comparisons": {
+    "params_ratio": [
+      1.0,
+      0.9695859413431038
+    ],
+    "flops_ratio": [
+      1.0,
+      2.4
+    ],
+    "speed_ratio": [
+      1.0,
+      3.9521715906938373
+    ],
+    "memory_ratio": [
+      1.0,
+      0.9695859413431038
+    ],
+    "perplexity_ratio": [
+      1.0,
+      2.4156090399453656
+    ]
+  }
+}

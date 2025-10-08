@@ -1,0 +1,10 @@
+{
+  "model_name": "itera_lite_micro",
+  "seq_length": 128,
+  "vocab_size": 2000,
+  "onnx_opset": 14,
+  "exports": {
+    "torchscript": "deployment\\models\\itera_lite_micro_torchscript.pt",
+    "onnx": "deployment\\models\\itera_lite_micro.onnx"
+  }
+}

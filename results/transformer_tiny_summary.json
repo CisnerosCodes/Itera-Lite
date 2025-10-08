@@ -1,0 +1,9 @@
+{
+  "model_name": "transformer_tiny",
+  "total_epochs": 2,
+  "total_steps": 110,
+  "best_val_loss": 2.6326400438944497,
+  "final_train_loss": 2.708408516103571,
+  "final_val_loss": 2.6281218926111856,
+  "total_training_time": 10.096359729766846
+}

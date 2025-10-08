@@ -1,0 +1,25 @@
+{
+  "original": {
+    "mean_latency_ms": 32.124198001110926,
+    "std_latency_ms": 3.436078189614174,
+    "model_size_mb": 1.1202239990234375
+  },
+  "int8": {
+    "mean_latency_ms": 38.72985300258733,
+    "std_latency_ms": 4.325057523376961,
+    "model_size_mb": 0.5552825927734375,
+    "max_output_diff": 0.5290563106536865,
+    "mean_output_diff": 0.023131592199206352,
+    "speedup": 0.8294428073084832,
+    "compression_ratio": 2.017394410705944
+  },
+  "int4": {
+    "mean_latency_ms": 35.162097996799275,
+    "std_latency_ms": 5.891688490007192,
+    "model_size_mb": 1.1202239990234375,
+    "max_output_diff": 4.647014617919922,
+    "mean_output_diff": 0.2088397592306137,
+    "speedup": 0.913602993883787,
+    "compression_ratio": 1.0
+  }
+}

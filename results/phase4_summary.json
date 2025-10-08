@@ -1,0 +1,123 @@
+{
+  "timestamp": "2025-10-07T17:49:51.150283",
+  "phase": 4,
+  "status": "complete",
+  "vocabulary_optimization": {},
+  "quantization": {
+    "original": {
+      "params": 1118496,
+      "size_mb": 4.2667236328125,
+      "flops_per_token": 327680,
+      "throughput": 10312.638928463215,
+      "perplexity": 0
+    },
+    "int8": {
+      "size_mb": 1.133941650390625,
+      "compression_ratio": 3.7627634093172215,
+      "speedup": 1.1892731856165157,
+      "time_ms": 45.84152698516846
+    }
+  },
+  "distillation": {
+    "teacher": {
+      "params": 1118496,
+      "flops_per_token": 327680,
+      "throughput": 10523.34052201873,
+      "perplexity": 0
+    },
+    "student": {
+      "params": 293656,
+      "flops_per_token": 57344,
+      "throughput": 13238.18731191552,
+      "perplexity": 0
+    },
+    "compression": {
+      "param_ratio": 3.8088647941809466,
+      "flops_ratio": 5.714285714285714,
+      "perplexity_degradation": 0
+    },
+    "training": {
+      "train_loss": [
+        123.37084145121055,
+        39.090635828452534,
+        7.6572205430210225,
+        4.820425741743334
+      ],
+      "val_loss": [
+        71.53445157137784,
+        12.012295983054422,
+        4.69392728805542,
+        4.0921243320811875
+      ],
+      "best_val_loss": 4.0921243320811875,
+      "comparison": {
+        "teacher_time_ms": 57.210915088653564,
+        "student_time_ms": 36.04097127914429,
+        "speedup": 1.5873854965101792,
+        "teacher_size_mb": 4.2667236328125,
+        "student_size_mb": 1.120208740234375,
+        "compression_ratio": 3.8088647941809466,
+        "size_reduction": 3.8088647941809466
+      }
+    }
+  },
+  "cumulative_efficiency": {
+    "vocab_reduction": 1.0,
+    "quant_reduction": 3.7627634093172215,
+    "distill_reduction": 3.8088647941809466,
+    "cumulative_param_reduction": 14.331857078580637,
+    "cumulative_flops_reduction": 3.8088647941809466,
+    "final_params": 131629,
+    "final_flops": 86030
+  },
+  "system_info": {
+    "timestamp": "2025-10-07T17:28:41.767669",
+    "os": {
+      "system": "Windows",
+      "release": "11",
+      "version": "10.0.26100",
+      "machine": "AMD64",
+      "architecture": "64bit"
+    },
+    "cpu": {
+      "processor": "Intel64 Family 6 Model 186 Stepping 3, GenuineIntel",
+      "physical_cores": 10,
+      "logical_cores": 12,
+      "max_frequency_mhz": 1700.0,
+      "current_frequency_mhz": 1700.0
+    },
+    "memory": {
+      "total_gb": 15.554473876953125,
+      "available_gb": 1.6895790100097656,
+      "used_gb": 13.86489486694336,
+      "percent_used": 89.1
+    },
+    "disk": {
+      "workspace_path": "C:\\Users\\adria\\Itera-Lite",
+      "total_gb": 951.6455039978027,
+      "used_gb": 470.9000053405762,
+      "free_gb": 480.74549865722656,
+      "percent_used": 49.5
+    },
+    "python": {
+      "version": "3.13.7 (tags/v3.13.7:bcee1c3, Aug 14 2025, 14:15:11) [MSC v.1944 64 bit (AMD64)]",
+      "implementation": "CPython",
+      "compiler": "MSC v.1944 64 bit (AMD64)",
+      "executable": "C:\\Users\\adria\\Itera-Lite\\.venv\\Scripts\\python.exe"
+    },
+    "pytorch": {
+      "version": "2.8.0+cpu",
+      "cuda_available": false,
+      "cuda_version": "N/A",
+      "cudnn_version": "N/A",
+      "device_count": 0,
+      "device_name": "CPU"
+    },
+    "dependencies": {
+      "numpy": "2.3.3",
+      "matplotlib": "3.10.6",
+      "seaborn": "0.13.2",
+      "transformers": "4.57.0"
+    }
+  }
+}

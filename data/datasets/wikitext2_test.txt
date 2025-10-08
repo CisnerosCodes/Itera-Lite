@@ -1,0 +1,320 @@
+
+= Introduction =
+
+Machine learning is a field of artificial intelligence that uses statistical techniques to give computer systems the ability to learn from data, without being explicitly programmed. The name machine learning was coined in 1959 by Arthur Samuel.
+
+= History =
+
+The study of machine learning began in the 1950s. Early work focused on pattern recognition and computational learning theory. In the 1990s, machine learning evolved from the field of artificial intelligence. Researchers shifted from knowledge-driven approaches to data-driven approaches.
+
+= Applications =
+
+Machine learning has many applications including natural language processing, computer vision, speech recognition, email filtering, agriculture, and medicine. Applications range from simple pattern recognition to complex decision making systems.
+
+= Deep Learning =
+
+Deep learning is part of a broader family of machine learning methods based on artificial neural networks. Learning can be supervised, semi-supervised or unsupervised. Deep learning architectures have been applied to fields including computer vision and natural language processing.
+
+= Introduction =
+
+Machine learning is a field of artificial intelligence that uses statistical techniques to give computer systems the ability to learn from data, without being explicitly programmed. The name machine learning was coined in 1959 by Arthur Samuel.
+
+= History =
+
+The study of machine learning began in the 1950s. Early work focused on pattern recognition and computational learning theory. In the 1990s, machine learning evolved from the field of artificial intelligence. Researchers shifted from knowledge-driven approaches to data-driven approaches.
+
+= Applications =
+
+Machine learning has many applications including natural language processing, computer vision, speech recognition, email filtering, agriculture, and medicine. Applications range from simple pattern recognition to complex decision making systems.
+
+= Deep Learning =
+
+Deep learning is part of a broader family of machine learning methods based on artificial neural networks. Learning can be supervised, semi-supervised or unsupervised. Deep learning architectures have been applied to fields including computer vision and natural language processing.
+
+= Introduction =
+
+Machine learning is a field of artificial intelligence that uses statistical techniques to give computer systems the ability to learn from data, without being explicitly programmed. The name machine learning was coined in 1959 by Arthur Samuel.
+
+= History =
+
+The study of machine learning began in the 1950s. Early work focused on pattern recognition and computational learning theory. In the 1990s, machine learning evolved from the field of artificial intelligence. Researchers shifted from knowledge-driven approaches to data-driven approaches.
+
+= Applications =
+
+Machine learning has many applications including natural language processing, computer vision, speech recognition, email filtering, agriculture, and medicine. Applications range from simple pattern recognition to complex decision making systems.
+
+= Deep Learning =
+
+Deep learning is part of a broader family of machine learning methods based on artificial neural networks. Learning can be supervised, semi-supervised or unsupervised. Deep learning architectures have been applied to fields including computer vision and natural language processing.
+
+= Introduction =
+
+Machine learning is a field of artificial intelligence that uses statistical techniques to give computer systems the ability to learn from data, without being explicitly programmed. The name machine learning was coined in 1959 by Arthur Samuel.
+
+= History =
+
+The study of machine learning began in the 1950s. Early work focused on pattern recognition and computational learning theory. In the 1990s, machine learning evolved from the field of artificial intelligence. Researchers shifted from knowledge-driven approaches to data-driven approaches.
+
+= Applications =
+
+Machine learning has many applications including natural language processing, computer vision, speech recognition, email filtering, agriculture, and medicine. Applications range from simple pattern recognition to complex decision making systems.
+
+= Deep Learning =
+
+Deep learning is part of a broader family of machine learning methods based on artificial neural networks. Learning can be supervised, semi-supervised or unsupervised. Deep learning architectures have been applied to fields including computer vision and natural language processing.
+
+= Introduction =
+
+Machine learning is a field of artificial intelligence that uses statistical techniques to give computer systems the ability to learn from data, without being explicitly programmed. The name machine learning was coined in 1959 by Arthur Samuel.
+
+= History =
+
+The study of machine learning began in the 1950s. Early work focused on pattern recognition and computational learning theory. In the 1990s, machine learning evolved from the field of artificial intelligence. Researchers shifted from knowledge-driven approaches to data-driven approaches.
+
+= Applications =
+
+Machine learning has many applications including natural language processing, computer vision, speech recognition, email filtering, agriculture, and medicine. Applications range from simple pattern recognition to complex decision making systems.
+
+= Deep Learning =
+
+Deep learning is part of a broader family of machine learning methods based on artificial neural networks. Learning can be supervised, semi-supervised or unsupervised. Deep learning architectures have been applied to fields including computer vision and natural language processing.
+
+= Introduction =
+
+Machine learning is a field of artificial intelligence that uses statistical techniques to give computer systems the ability to learn from data, without being explicitly programmed. The name machine learning was coined in 1959 by Arthur Samuel.
+
+= History =
+
+The study of machine learning began in the 1950s. Early work focused on pattern recognition and computational learning theory. In the 1990s, machine learning evolved from the field of artificial intelligence. Researchers shifted from knowledge-driven approaches to data-driven approaches.
+
+= Applications =
+
+Machine learning has many applications including natural language processing, computer vision, speech recognition, email filtering, agriculture, and medicine. Applications range from simple pattern recognition to complex decision making systems.
+
+= Deep Learning =
+
+Deep learning is part of a broader family of machine learning methods based on artificial neural networks. Learning can be supervised, semi-supervised or unsupervised. Deep learning architectures have been applied to fields including computer vision and natural language processing.
+
+= Introduction =
+
+Machine learning is a field of artificial intelligence that uses statistical techniques to give computer systems the ability to learn from data, without being explicitly programmed. The name machine learning was coined in 1959 by Arthur Samuel.
+
+= History =
+
+The study of machine learning began in the 1950s. Early work focused on pattern recognition and computational learning theory. In the 1990s, machine learning evolved from the field of artificial intelligence. Researchers shifted from knowledge-driven approaches to data-driven approaches.
+
+= Applications =
+
+Machine learning has many applications including natural language processing, computer vision, speech recognition, email filtering, agriculture, and medicine. Applications range from simple pattern recognition to complex decision making systems.
+
+= Deep Learning =
+
+Deep learning is part of a broader family of machine learning methods based on artificial neural networks. Learning can be supervised, semi-supervised or unsupervised. Deep learning architectures have been applied to fields including computer vision and natural language processing.
+
+= Introduction =
+
+Machine learning is a field of artificial intelligence that uses statistical techniques to give computer systems the ability to learn from data, without being explicitly programmed. The name machine learning was coined in 1959 by Arthur Samuel.
+
+= History =
+
+The study of machine learning began in the 1950s. Early work focused on pattern recognition and computational learning theory. In the 1990s, machine learning evolved from the field of artificial intelligence. Researchers shifted from knowledge-driven approaches to data-driven approaches.
+
+= Applications =
+
+Machine learning has many applications including natural language processing, computer vision, speech recognition, email filtering, agriculture, and medicine. Applications range from simple pattern recognition to complex decision making systems.
+
+= Deep Learning =
+
+Deep learning is part of a broader family of machine learning methods based on artificial neural networks. Learning can be supervised, semi-supervised or unsupervised. Deep learning architectures have been applied to fields including computer vision and natural language processing.
+
+= Introduction =
+
+Machine learning is a field of artificial intelligence that uses statistical techniques to give computer systems the ability to learn from data, without being explicitly programmed. The name machine learning was coined in 1959 by Arthur Samuel.
+
+= History =
+
+The study of machine learning began in the 1950s. Early work focused on pattern recognition and computational learning theory. In the 1990s, machine learning evolved from the field of artificial intelligence. Researchers shifted from knowledge-driven approaches to data-driven approaches.
+
+= Applications =
+
+Machine learning has many applications including natural language processing, computer vision, speech recognition, email filtering, agriculture, and medicine. Applications range from simple pattern recognition to complex decision making systems.
+
+= Deep Learning =
+
+Deep learning is part of a broader family of machine learning methods based on artificial neural networks. Learning can be supervised, semi-supervised or unsupervised. Deep learning architectures have been applied to fields including computer vision and natural language processing.
+
+= Introduction =
+
+Machine learning is a field of artificial intelligence that uses statistical techniques to give computer systems the ability to learn from data, without being explicitly programmed. The name machine learning was coined in 1959 by Arthur Samuel.
+
+= History =
+
+The study of machine learning began in the 1950s. Early work focused on pattern recognition and computational learning theory. In the 1990s, machine learning evolved from the field of artificial intelligence. Researchers shifted from knowledge-driven approaches to data-driven approaches.
+
+= Applications =
+
+Machine learning has many applications including natural language processing, computer vision, speech recognition, email filtering, agriculture, and medicine. Applications range from simple pattern recognition to complex decision making systems.
+
+= Deep Learning =
+
+Deep learning is part of a broader family of machine learning methods based on artificial neural networks. Learning can be supervised, semi-supervised or unsupervised. Deep learning architectures have been applied to fields including computer vision and natural language processing.
+
+= Introduction =
+
+Machine learning is a field of artificial intelligence that uses statistical techniques to give computer systems the ability to learn from data, without being explicitly programmed. The name machine learning was coined in 1959 by Arthur Samuel.
+
+= History =
+
+The study of machine learning began in the 1950s. Early work focused on pattern recognition and computational learning theory. In the 1990s, machine learning evolved from the field of artificial intelligence. Researchers shifted from knowledge-driven approaches to data-driven approaches.
+
+= Applications =
+
+Machine learning has many applications including natural language processing, computer vision, speech recognition, email filtering, agriculture, and medicine. Applications range from simple pattern recognition to complex decision making systems.
+
+= Deep Learning =
+
+Deep learning is part of a broader family of machine learning methods based on artificial neural networks. Learning can be supervised, semi-supervised or unsupervised. Deep learning architectures have been applied to fields including computer vision and natural language processing.
+
+= Introduction =
+
+Machine learning is a field of artificial intelligence that uses statistical techniques to give computer systems the ability to learn from data, without being explicitly programmed. The name machine learning was coined in 1959 by Arthur Samuel.
+
+= History =
+
+The study of machine learning began in the 1950s. Early work focused on pattern recognition and computational learning theory. In the 1990s, machine learning evolved from the field of artificial intelligence. Researchers shifted from knowledge-driven approaches to data-driven approaches.
+
+= Applications =
+
+Machine learning has many applications including natural language processing, computer vision, speech recognition, email filtering, agriculture, and medicine. Applications range from simple pattern recognition to complex decision making systems.
+
+= Deep Learning =
+
+Deep learning is part of a broader family of machine learning methods based on artificial neural networks. Learning can be supervised, semi-supervised or unsupervised. Deep learning architectures have been applied to fields including computer vision and natural language processing.
+
+= Introduction =
+
+Machine learning is a field of artificial intelligence that uses statistical techniques to give computer systems the ability to learn from data, without being explicitly programmed. The name machine learning was coined in 1959 by Arthur Samuel.
+
+= History =
+
+The study of machine learning began in the 1950s. Early work focused on pattern recognition and computational learning theory. In the 1990s, machine learning evolved from the field of artificial intelligence. Researchers shifted from knowledge-driven approaches to data-driven approaches.
+
+= Applications =
+
+Machine learning has many applications including natural language processing, computer vision, speech recognition, email filtering, agriculture, and medicine. Applications range from simple pattern recognition to complex decision making systems.
+
+= Deep Learning =
+
+Deep learning is part of a broader family of machine learning methods based on artificial neural networks. Learning can be supervised, semi-supervised or unsupervised. Deep learning architectures have been applied to fields including computer vision and natural language processing.
+
+= Introduction =
+
+Machine learning is a field of artificial intelligence that uses statistical techniques to give computer systems the ability to learn from data, without being explicitly programmed. The name machine learning was coined in 1959 by Arthur Samuel.
+
+= History =
+
+The study of machine learning began in the 1950s. Early work focused on pattern recognition and computational learning theory. In the 1990s, machine learning evolved from the field of artificial intelligence. Researchers shifted from knowledge-driven approaches to data-driven approaches.
+
+= Applications =
+
+Machine learning has many applications including natural language processing, computer vision, speech recognition, email filtering, agriculture, and medicine. Applications range from simple pattern recognition to complex decision making systems.
+
+= Deep Learning =
+
+Deep learning is part of a broader family of machine learning methods based on artificial neural networks. Learning can be supervised, semi-supervised or unsupervised. Deep learning architectures have been applied to fields including computer vision and natural language processing.
+
+= Introduction =
+
+Machine learning is a field of artificial intelligence that uses statistical techniques to give computer systems the ability to learn from data, without being explicitly programmed. The name machine learning was coined in 1959 by Arthur Samuel.
+
+= History =
+
+The study of machine learning began in the 1950s. Early work focused on pattern recognition and computational learning theory. In the 1990s, machine learning evolved from the field of artificial intelligence. Researchers shifted from knowledge-driven approaches to data-driven approaches.
+
+= Applications =
+
+Machine learning has many applications including natural language processing, computer vision, speech recognition, email filtering, agriculture, and medicine. Applications range from simple pattern recognition to complex decision making systems.
+
+= Deep Learning =
+
+Deep learning is part of a broader family of machine learning methods based on artificial neural networks. Learning can be supervised, semi-supervised or unsupervised. Deep learning architectures have been applied to fields including computer vision and natural language processing.
+
+= Introduction =
+
+Machine learning is a field of artificial intelligence that uses statistical techniques to give computer systems the ability to learn from data, without being explicitly programmed. The name machine learning was coined in 1959 by Arthur Samuel.
+
+= History =
+
+The study of machine learning began in the 1950s. Early work focused on pattern recognition and computational learning theory. In the 1990s, machine learning evolved from the field of artificial intelligence. Researchers shifted from knowledge-driven approaches to data-driven approaches.
+
+= Applications =
+
+Machine learning has many applications including natural language processing, computer vision, speech recognition, email filtering, agriculture, and medicine. Applications range from simple pattern recognition to complex decision making systems.
+
+= Deep Learning =
+
+Deep learning is part of a broader family of machine learning methods based on artificial neural networks. Learning can be supervised, semi-supervised or unsupervised. Deep learning architectures have been applied to fields including computer vision and natural language processing.
+
+= Introduction =
+
+Machine learning is a field of artificial intelligence that uses statistical techniques to give computer systems the ability to learn from data, without being explicitly programmed. The name machine learning was coined in 1959 by Arthur Samuel.
+
+= History =
+
+The study of machine learning began in the 1950s. Early work focused on pattern recognition and computational learning theory. In the 1990s, machine learning evolved from the field of artificial intelligence. Researchers shifted from knowledge-driven approaches to data-driven approaches.
+
+= Applications =
+
+Machine learning has many applications including natural language processing, computer vision, speech recognition, email filtering, agriculture, and medicine. Applications range from simple pattern recognition to complex decision making systems.
+
+= Deep Learning =
+
+Deep learning is part of a broader family of machine learning methods based on artificial neural networks. Learning can be supervised, semi-supervised or unsupervised. Deep learning architectures have been applied to fields including computer vision and natural language processing.
+
+= Introduction =
+
+Machine learning is a field of artificial intelligence that uses statistical techniques to give computer systems the ability to learn from data, without being explicitly programmed. The name machine learning was coined in 1959 by Arthur Samuel.
+
+= History =
+
+The study of machine learning began in the 1950s. Early work focused on pattern recognition and computational learning theory. In the 1990s, machine learning evolved from the field of artificial intelligence. Researchers shifted from knowledge-driven approaches to data-driven approaches.
+
+= Applications =
+
+Machine learning has many applications including natural language processing, computer vision, speech recognition, email filtering, agriculture, and medicine. Applications range from simple pattern recognition to complex decision making systems.
+
+= Deep Learning =
+
+Deep learning is part of a broader family of machine learning methods based on artificial neural networks. Learning can be supervised, semi-supervised or unsupervised. Deep learning architectures have been applied to fields including computer vision and natural language processing.
+
+= Introduction =
+
+Machine learning is a field of artificial intelligence that uses statistical techniques to give computer systems the ability to learn from data, without being explicitly programmed. The name machine learning was coined in 1959 by Arthur Samuel.
+
+= History =
+
+The study of machine learning began in the 1950s. Early work focused on pattern recognition and computational learning theory. In the 1990s, machine learning evolved from the field of artificial intelligence. Researchers shifted from knowledge-driven approaches to data-driven approaches.
+
+= Applications =
+
+Machine learning has many applications including natural language processing, computer vision, speech recognition, email filtering, agriculture, and medicine. Applications range from simple pattern recognition to complex decision making systems.
+
+= Deep Learning =
+
+Deep learning is part of a broader family of machine learning methods based on artificial neural networks. Learning can be supervised, semi-supervised or unsupervised. Deep learning architectures have been applied to fields including computer vision and natural language processing.
+
+= Introduction =
+
+Machine learning is a field of artificial intelligence that uses statistical techniques to give computer systems the ability to learn from data, without being explicitly programmed. The name machine learning was coined in 1959 by Arthur Samuel.
+
+= History =
+
+The study of machine learning began in the 1950s. Early work focused on pattern recognition and computational learning theory. In the 1990s, machine learning evolved from the field of artificial intelligence. Researchers shifted from knowledge-driven approaches to data-driven approaches.
+
+= Applications =
+
+Machine learning has many applications including natural language processing, computer vision, speech recognition, email filtering, agriculture, and medicine. Applications range from simple pattern recognition to complex decision making systems.
+
+= Deep Learning =
+
+Deep learning is part of a broader family of machine learning methods based on artificial neural networks. Learning can be supervised, semi-supervised or unsupervised. Deep learning architectures have been applied to fields including computer vision and natural language processing.
