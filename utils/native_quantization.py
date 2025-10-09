@@ -462,10 +462,15 @@ def _evaluate_model(model: nn.Module, test_loader, device: torch.device) -> Dict
             # Forward pass
             outputs = model(inputs)
             
-            # Compute loss
-            if hasattr(outputs, 'logits'):
+            # Extract logits from various output formats
+            if isinstance(outputs, tuple):
+                # Model returns (logits, ...) tuple
+                logits = outputs[0]
+            elif hasattr(outputs, 'logits'):
+                # Model returns object with .logits attribute
                 logits = outputs.logits
             else:
+                # Model returns logits directly
                 logits = outputs
             
             loss = nn.functional.cross_entropy(
