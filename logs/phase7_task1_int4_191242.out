@@ -1,0 +1,178 @@
+=========================================
+Phase 7 Task 1: GPU-Native INT4 Quantization
+=========================================
+
+Job Information:
+  Job ID: 191242
+  Node: lg10
+  Partition: gpu
+  GPUs Allocated: 
+  CPUs per task: 8
+  Memory: 32768MB
+
+=========================================
+1. Environment Setup
+=========================================
+Python: /ztank/home/u.ac290968/Itera-Lite/.venv/bin/python
+Python version: Python 3.11.5
+
+PyTorch version: 2.8.0+cu128
+CUDA available: True
+CUDA version: 12.8
+
+GPU Information:
+0, NVIDIA A30, 24576 MiB, 8.0
+
+=========================================
+2. Verify Dependencies
+=========================================
+✓ bitsandbytes 0.48.1
+✓ torch 2.8.0+cu128
+✓ CUDA available: True
+✓ GPU: NVIDIA A30
+
+=========================================
+3. Run INT4 Quantization
+=========================================
+
+Using checkpoint: checkpoints/itera_lite_tiny_best.pt
+======================================================================
+Phase 7 Task 1: GPU-Native INT4 Quantization
+======================================================================
+
+Configuration:
+  Checkpoint: checkpoints/itera_lite_tiny_best.pt
+  Output: checkpoints/int4_native/itera_lite_int4_nf4.pt
+  Quantization type: nf4
+  Compute dtype: float16
+  Device: cuda
+  Calibration samples: 1000
+  QAT epochs: 0
+
+GPU Information:
+  Device: NVIDIA A30
+  CUDA version: 12.8
+  Memory: 25.23 GB
+
+Loading model from: checkpoints/itera_lite_tiny_best.pt
+⚠ Config not found in checkpoint, inferred from state_dict
+Initialized Itera-Lite with 1,886,496 parameters
+✓ Model loaded successfully
+  Config: IteraLiteConfig(vocab_size=8000, hidden_size=128, num_layers=4, ssm_state_size=8, ssm_conv_kernel=4, ssm_expand_factor=2, num_experts=4, expert_size=64, top_k_experts=2, moe_layers=[1, 3], load_balance_loss_weight=0.01, max_seq_length=128, dropout=0.1, layer_norm_eps=1e-05, use_flash_attn=False, gradient_checkpointing=False)
+  Parameters: 1,886,496
+
+Generating 1000 calibration samples...
+✓ Generated 1000 calibration samples
+NativeINT4Quantizer initialized on cuda
+Total parameters: 1,886,496
+Quantization type: nf4
+Compute dtype: float16
+
+============================================================
+Starting Calibration
+============================================================
+
+✓ Calibration complete in 1.43s
+  Processed 31 batches
+
+============================================================
+Applying INT4 Quantization
+============================================================
+
+Found 35 Linear layers to quantize
+
+✓ Quantization complete in 0.01s
+  Quantized 35/35 layers
+  Original params: 1,886,496
+  Quantized params: 2,910,496
+
+============================================================
+Exporting Quantized Model
+============================================================
+
+✓ Model saved to: checkpoints/int4_native/itera_lite_int4_nf4.pt
+  File size: 7.23 MB
+  Parameters: 2,910,496
+  Config saved to: checkpoints/int4_native/itera_lite_int4_nf4_config.json
+
+Loading model from: checkpoints/itera_lite_tiny_best.pt
+⚠ Config not found in checkpoint, inferred from state_dict
+Initialized Itera-Lite with 1,886,496 parameters
+✓ Model loaded successfully
+  Config: IteraLiteConfig(vocab_size=8000, hidden_size=128, num_layers=4, ssm_state_size=8, ssm_conv_kernel=4, ssm_expand_factor=2, num_experts=4, expert_size=64, top_k_experts=2, moe_layers=[1, 3], load_balance_loss_weight=0.01, max_seq_length=128, dropout=0.1, layer_norm_eps=1e-05, use_flash_attn=False, gradient_checkpointing=False)
+  Parameters: 1,886,496
+
+============================================================
+Benchmarking INT4 vs FP32
+============================================================
+
+Evaluating FP32 model...
+
+Evaluating INT4 model...
+
+============================================================
+Benchmark Results
+============================================================
+
+FP32:
+  Perplexity: 25080.13
+  Inference time: 1.4107s
+  Model size: 7.23 MB
+
+INT4:
+  Perplexity: 20273.57
+  Inference time: 1.9994s
+  Model size: 5.10 MB
+
+Comparison:
+  Speedup: 0.71×
+  Size reduction: 1.42×
+  Perplexity degradation: -19.16%
+
+✓ Benchmark results saved to: checkpoints/int4_native/phase7_int4_benchmark.json
+
+======================================================================
+Phase 7 Task 1 Complete!
+======================================================================
+
+✓ Quantized model saved to: checkpoints/int4_native/itera_lite_int4_nf4.pt
+✓ Model size: 7.23 MB
+✓ Total time: 1.44s
+
+Compression Results:
+  Size reduction: 1.42×
+  Speedup: 0.71×
+  Perplexity degradation: -19.16%
+
+Next Steps:
+  1. Review benchmark results in results/phase7_int4_benchmark.json
+  2. Test quantized model with inference script
+  3. Proceed to Task 2: Structured Pruning
+
+✓ Quantization completed successfully!
+
+=========================================
+4. Results Summary
+=========================================
+
+Quantized Model:
+  Path: checkpoints/int4_native/itera_lite_int4_nf4.pt
+  Size: 7.4M
+
+Benchmark Results:
+  Compression: 1.42×
+  Speedup: 0.71×
+  Perplexity degradation: -19.16%
+  Model size: 7.23 MB
+
+=========================================
+5. Job Complete!
+=========================================
+
+Next Steps:
+  1. Review results: cat logs/phase7_task1_int4_191242.out
+  2. Check benchmark: cat checkpoints/int4_native/phase7_int4_benchmark.json
+  3. Commit results: git add checkpoints/int4_native/ results/
+  4. Push to GitHub: git commit -m 'Phase 7 Task 1: INT4 quantization complete' && git push
+
+Job completed at: Thu Oct  9 18:12:11 CDT 2025

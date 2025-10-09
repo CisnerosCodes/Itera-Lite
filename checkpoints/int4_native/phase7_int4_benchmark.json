@@ -1,0 +1,65 @@
+{
+  "timestamp": "2025-10-09T18:12:10.785912",
+  "config": {
+    "checkpoint": "checkpoints/itera_lite_tiny_best.pt",
+    "output": "checkpoints/int4_native/itera_lite_int4_nf4.pt",
+    "quant_type": "nf4",
+    "double_quant": true,
+    "compute_dtype": "float16",
+    "calibration_samples": 1000,
+    "calibration_batch_size": 32,
+    "qat_epochs": 0,
+    "qat_lr": 1e-05,
+    "data_path": null,
+    "tokenizer_path": "data/tokenizer_2000.json",
+    "device": "cuda",
+    "skip_benchmark": false,
+    "benchmark_batches": 100
+  },
+  "quantization_config": {
+    "bits": 4,
+    "use_double_quant": true,
+    "quant_type": "nf4",
+    "compute_dtype": "float16",
+    "calibration_samples": 1000,
+    "calibration_batch_size": 32,
+    "qat_epochs": 0,
+    "qat_learning_rate": 1e-05,
+    "device": "cuda"
+  },
+  "export_info": {
+    "path": "checkpoints/int4_native/itera_lite_int4_nf4.pt",
+    "size_mb": 7.228606224060059,
+    "parameters": 2910496
+  },
+  "calibration_stats": {
+    "num_batches": 31,
+    "calibration_time": 1.429075002670288
+  },
+  "benchmark_results": {
+    "fp32": {
+      "perplexity": 25080.1328125,
+      "inference_time": 1.4107096195220947,
+      "model_size_mb": 7.226943016052246,
+      "num_batches": 32
+    },
+    "int4": {
+      "perplexity": 20273.568359375,
+      "inference_time": 1.999375581741333,
+      "model_size_mb": 5.102080345153809,
+      "num_batches": 32
+    },
+    "comparison": {
+      "speedup": 0.7055750967476824,
+      "size_reduction": 1.4164698568333465,
+      "perplexity_degradation": -19.164828547994755
+    }
+  },
+  "statistics": {
+    "total_params": 1886496,
+    "quantized_params": 2910496,
+    "calibration_time": 1.429075002670288,
+    "quantization_time": 0.008260726928710938,
+    "qat_time": 0
+  }
+}
