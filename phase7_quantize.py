@@ -219,8 +219,8 @@ def main():
     
     tokenizer = MockTokenizer(config.vocab_size)
     
-    # Create calibration dataset and dataloader
-    calibration_dataset = SimpleTextDataset(texts[:args.calibration_samples], tokenizer)
+    # Create calibration dataset and dataloader (use model's max_seq_length)
+    calibration_dataset = SimpleTextDataset(texts[:args.calibration_samples], tokenizer, max_length=config.max_seq_length)
     calibration_loader = DataLoader(
         calibration_dataset,
         batch_size=args.calibration_batch_size,
@@ -228,7 +228,7 @@ def main():
     )
     
     # Create test dataset for benchmarking
-    test_dataset = SimpleTextDataset(texts[:min(1000, len(texts))], tokenizer)
+    test_dataset = SimpleTextDataset(texts[:min(1000, len(texts))], tokenizer, max_length=config.max_seq_length)
     test_loader = DataLoader(
         test_dataset,
         batch_size=args.calibration_batch_size,
