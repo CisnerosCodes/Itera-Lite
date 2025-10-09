@@ -34,78 +34,93 @@ PHASE 7 TARGET: 50-100× compression achieved ✓
 
 ## Hardware Capability Assessment
 
-### Current System (from diagnostics)
+### Local System (Development - Windows)
+
+| Component | Specification | Status | Usage |
+|-----------|--------------|--------|-------|
+| **CPU** | 10 cores (12 threads) | ✅ EXCELLENT | Code editing, prototyping |
+| **Memory** | 15.55 GB RAM | ✅ SUFFICIENT | Local testing |
+| **GPU** | Not available (CPU-only PyTorch) | ⚠️ LIMITED | Development only |
+| **Python** | 3.13.7 | ✅ EXCELLENT | Latest features |
+| **PyTorch** | 2.8.0+cpu | ✅ CURRENT | Local debugging |
+
+**Local Benchmarks:**
+- **CPU FP32:** 406.88 GFLOPS (excellent for prototyping)
+- **CPU FP16:** 1.31 GFLOPS (limited)
+
+### HPC Cluster (Production - Texas A&M FASTER)
 
 | Component | Specification | Status | Impact on Phase 7 |
 |-----------|--------------|--------|-------------------|
-| **CPU** | 10 cores (12 threads) | ✅ EXCELLENT | Parallel data processing, CPU kernels |
-| **Memory** | 15.55 GB RAM | ✅ SUFFICIENT | Model checkpoints, batching |
-| **GPU** | Not available (CPU-only PyTorch) | ⚠️ LIMITED | CPU-based quantization only |
-| **SIMD** | MKL, MKL-DNN available | ✅ GOOD | Optimized INT8/FP32 operations |
-| **Python** | 3.13.7 | ✅ EXCELLENT | Latest features |
-| **PyTorch** | 2.8.0+cpu | ✅ CURRENT | No CUDA support |
+| **GPU** | **NVIDIA A30 (Ampere)** | ✅ **OUTSTANDING** | **Enterprise-grade acceleration** |
+| **VRAM** | **24 GB** | ✅ **EXCELLENT** | **No memory constraints** |
+| **Compute Capability** | **8.0** | ✅ **EXCELLENT** | **Full Ampere features** |
+| **CUDA** | 12.8 (matches PyTorch) | ✅ **PERFECT** | Native GPU ops |
+| **cuDNN** | 9.1.0 | ✅ **LATEST** | Optimized kernels |
+| **Multi-Processors** | 56 SMs | ✅ **HIGH** | Massive parallelism |
+| **Python** | 3.11.5 | ✅ CURRENT | HPC standard |
+| **PyTorch** | 2.8.0+cu128 | ✅ **GPU-ENABLED** | CUDA 12.8 support |
 
-### Performance Benchmarks
-
-- **CPU FP32:** 406.88 GFLOPS (excellent for CPU)
-- **CPU FP16:** 1.31 GFLOPS (limited, expected on CPU without GPU)
+**GPU Performance (NVIDIA A30):**
+- **FP32:** ~10.3 TFLOPS (25× faster than local CPU)
+- **FP16 (Tensor Cores):** ~165 TFLOPS (400× faster than local CPU!)
+- **INT8 (Tensor Cores):** ~330 TOPS (hardware-accelerated quantization)
 
 ### Implications for Phase 7
 
-**What Works:**
-- ✅ CPU-based INT4/INT8 quantization (via PyTorch, bitsandbytes)
-- ✅ Structured pruning (CPU-compatible)
-- ✅ MKL-accelerated matrix operations
-- ✅ Model export and inference optimization
+**GPU Advantages (A30 Ampere):**
+- ✅ **Native FP16 Tensor Cores** → 20-30× faster mixed-precision training
+- ✅ **INT8 Tensor Cores** → Hardware-accelerated quantization
+- ✅ **24GB VRAM** → Full batch sizes, no gradient checkpointing needed
+- ✅ **bitsandbytes GPU mode** → 5-10× faster INT4 calibration vs CPU
+- ✅ **CUDA kernel fusion** → Custom optimized operations
+- ✅ **Fast pruning fine-tuning** → 10× speedup for gradient computation
 
-**What's Limited:**
-- ⚠️ No native FP16 acceleration (CPU doesn't benefit from FP16)
-- ⚠️ No CUDA-based mixed-precision training
-- ⚠️ Slower iteration cycles compared to GPU
-
-**Adaptations:**
-- Focus on **CPU-optimized quantization** (INT8, INT4 via `torch.quantization`)
-- Use **bitsandbytes** for 4-bit quantization (CPU fallback mode)
-- Prioritize **inference optimization** over training speed
-- Leverage **MKL/MKL-DNN** for SIMD acceleration
+**Phase 7 Strategy:**
+- 🚀 **GPU-accelerated quantization** (bitsandbytes native INT4)
+- 🚀 **FP16 mixed-precision training** (Tensor Core acceleration)
+- 🚀 **GPU fine-tuning** (pruning recovery in hours vs days)
+- 🚀 **CUDA kernel optimization** (fused SSM/MoE operations)
+- ✅ **Dual environment workflow** (code locally, compute on HPC)
 
 ---
 
 ## Phase 7 Task Breakdown
 
-### ✅ Task 1: Native INT4 Implementation (2 weeks)
+### ✅ Task 1: Native INT4 Implementation (1 week - GPU accelerated!)
 
-**Objective:** Implement true hardware-accelerated INT4 quantization (not simulated)
+**Objective:** Implement true hardware-accelerated INT4 quantization using NVIDIA A30
 
 **Approach:**
 ```
 Current: Simulated INT4 (symmetric quantization in FP32)
-Target: Native INT4 (PyTorch quantization API + bitsandbytes)
+Target: GPU-native INT4 (bitsandbytes + A30 Tensor Cores)
+Acceleration: 5-10× faster calibration vs CPU
 ```
 
 **Sub-tasks:**
-1. **INT4 Quantization Research** (2 days)
-   - Review PyTorch `torch.quantization` API
-   - Test `bitsandbytes` 4-bit quantization (CPU mode)
-   - Benchmark `optimum` BitsAndBytes integration
-   - Identify best approach for Itera-Lite architecture
+1. **INT4 GPU Setup & Research** (1 day)
+   - Test `bitsandbytes` GPU mode on A30
+   - Benchmark GPU vs CPU quantization speed
+   - Validate INT8 Tensor Core acceleration
+   - Design GPU-optimized calibration pipeline
 
-2. **INT4 Quantization Implementation** (5 days)
-   - Create `utils/native_quantization.py`
-   - Implement INT4 weight quantization for Linear layers
-   - Add INT4 activation quantization support
+2. **INT4 Quantization Implementation** (2 days - reduced from 5!)
+   - Create `utils/native_quantization.py` (code locally)
+   - Implement GPU-accelerated INT4 weight quantization
+   - Add INT4 activation quantization (A30 native)
    - Handle SSM and MoE layer quantization edge cases
-   - Preserve model architecture compatibility
+   - Create HPC job script: `jobs/phase7_task1_quantize.sh`
 
-3. **INT4 Fine-tuning** (4 days)
-   - Implement Quantization-Aware Training (QAT) if needed
-   - Fine-tune INT4 model on TinyStories
-   - Measure perplexity degradation (target: <30% from FP32)
-   - Generate INT4 checkpoint
+3. **INT4 GPU Fine-tuning** (2 days - reduced from 4!)
+   - Quantization-Aware Training on A30 (FP16 base)
+   - Fine-tune INT4 model on TinyStories (GPU batches)
+   - Measure perplexity degradation (target: <30%)
+   - Generate INT4 checkpoint on HPC
 
-4. **INT4 Benchmarking** (2 days)
-   - Compare INT4 vs INT8 vs FP32 (speed, size, quality)
-   - Measure compression ratio (target: 2.0× over INT8)
+4. **INT4 Benchmarking** (1 day)
+   - Compare INT4 vs INT8 vs FP32 (A30 inference)
+   - Measure compression ratio (target: 2.0×)
    - Generate `reports/phase7_int4_quantization.md`
 
 **Expected Outputs:**
@@ -118,39 +133,40 @@ Target: Native INT4 (PyTorch quantization API + bitsandbytes)
 
 ---
 
-### ✅ Task 2: Structured Pruning (2 weeks)
+### ✅ Task 2: Structured Pruning (1 week - GPU accelerated!)
 
-**Objective:** Apply magnitude-based structured pruning for 30-50% sparsity
+**Objective:** GPU-accelerated structured pruning for 30-50% sparsity
 
 **Approach:**
 ```
 Current: Dense model (all parameters active)
 Target: 40% pruning → 60% parameters remaining
+GPU Advantage: 10× faster fine-tuning (A30 vs CPU)
 ```
 
 **Sub-tasks:**
-1. **Pruning Strategy Design** (2 days)
-   - Analyze layer importance (gradient-based sensitivity)
-   - Design pruning schedule (gradual vs one-shot)
-   - Choose pruning granularity (weight, channel, neuron)
-   - Plan SSM layer pruning (attention to state transitions)
+1. **Pruning Strategy Design** (1 day - reduced from 2!)
+   - GPU-accelerated gradient analysis (layer importance)
+   - Design iterative pruning schedule
+   - Choose pruning granularity (channel/neuron)
+   - Plan SSM layer preservation strategy
 
-2. **Pruning Implementation** (5 days)
-   - Create `utils/structured_pruning.py`
+2. **Pruning Implementation** (2 days - reduced from 5!)
+   - Create `utils/structured_pruning.py` (code locally)
    - Implement magnitude-based pruning
    - Add layer-wise pruning ratios (variable sparsity)
-   - Preserve critical layers (embeddings, final projection)
-   - Integrate `torch-pruning` library
+   - Preserve critical layers (embeddings, SSM)
+   - Create HPC job: `jobs/phase7_task2_prune.sh`
 
-3. **Post-Pruning Fine-tuning** (5 days)
-   - Fine-tune pruned model (recover lost accuracy)
-   - Iterative pruning schedule (10% → 20% → 40%)
-   - Measure perplexity after each pruning step
+3. **GPU Fine-tuning** (2 days - reduced from 5!)
+   - Fine-tune on A30 (FP16 mixed-precision)
+   - Iterative pruning: 10% → 20% → 40%
+   - Monitor perplexity after each step
    - Generate final pruned checkpoint
 
-4. **Pruning Analysis** (2 days)
+4. **Pruning Analysis** (1 day)
    - Visualize sparsity patterns per layer
-   - Compare pruned vs dense (speed, size, quality)
+   - Compare pruned vs dense (A30 inference)
    - Generate `reports/phase7_structured_pruning.md`
 
 **Expected Outputs:**
@@ -164,40 +180,43 @@ Target: 40% pruning → 60% parameters remaining
 
 ---
 
-### ✅ Task 3: Mixed-Precision Inference (1.5 weeks)
+### ✅ Task 3: Mixed-Precision Inference (1 week - A30 Tensor Cores!)
 
-**Objective:** Combine FP16, INT8, INT4 strategically for optimal speed/quality
+**Objective:** Hardware-native mixed-precision using A30 Tensor Cores
 
 **Approach:**
 ```
-Layer-wise precision assignment:
-- Embeddings: INT8 (large, less sensitive)
-- SSM layers: INT8/FP16 (state transitions sensitive)
-- MoE experts: INT4 (sparse, compression-friendly)
+Layer-wise precision assignment (A30 hardware-accelerated):
+- Embeddings: INT8 (Tensor Core INT8 ops)
+- SSM layers: FP16 (Tensor Core FP16 matmuls)
+- MoE experts: INT4 (bitsandbytes GPU mode)
 - Final projection: FP16 (output quality critical)
+
+GPU Advantage: 20-30× faster FP16 vs CPU emulation
 ```
 
 **Sub-tasks:**
-1. **Precision Profiling** (2 days)
-   - Analyze layer sensitivity to quantization
-   - Profile per-layer error propagation
-   - Identify critical vs compressible layers
-   - Design mixed-precision schema
+1. **GPU Precision Profiling** (1 day - reduced from 2!)
+   - Analyze layer sensitivity on A30
+   - Profile Tensor Core utilization per layer
+   - Identify optimal precision for each layer type
+   - Design A30-optimized mixed-precision schema
 
-2. **Mixed-Precision Implementation** (4 days)
-   - Create `utils/mixed_precision.py`
+2. **Mixed-Precision Implementation** (2 days)
+   - Create `utils/mixed_precision.py` (code locally)
    - Implement layer-wise precision assignment
-   - Add dynamic precision switching (if beneficial)
-   - Ensure forward pass compatibility
+   - Add A30 Tensor Core optimizations
+   - Create HPC job: `jobs/phase7_task3_mixed.sh`
 
-3. **Mixed-Precision Optimization** (3 days)
-   - Fine-tune mixed-precision model
-   - Benchmark vs uniform quantization
+3. **GPU Mixed-Precision Training** (2 days - reduced from 3!)
+   - Fine-tune mixed-precision model on A30
+   - Benchmark Tensor Core acceleration
    - Measure speed/quality trade-offs
    - Generate optimal configuration
 
-4. **Mixed-Precision Evaluation** (2 days)
+4. **Mixed-Precision Evaluation** (1 day)
    - Compare to FP32, INT8, INT4 baselines
+   - Measure A30 Tensor Core speedup
    - Generate `reports/phase7_mixed_precision.md`
 
 **Expected Outputs:**
@@ -210,42 +229,46 @@ Layer-wise precision assignment:
 
 ---
 
-### ✅ Task 4: Advanced Kernel Optimization (1.5 weeks)
+### ✅ Task 4: Advanced Kernel Optimization (1.5 weeks - CUDA + CPU!)
 
-**Objective:** CPU-specific optimizations for maximum inference speed
+**Objective:** Dual-target optimization (A30 CUDA kernels + CPU deployment)
 
 **Approach:**
 ```
-Optimization targets:
-- MKL-DNN kernel fusion (Conv+ReLU, Matmul+Add)
-- SIMD vectorization (AVX2 for INT8 operations)
+GPU Optimization (A30 CUDA):
+- CUDA kernel fusion (SSM scan, MoE routing)
+- Tensor Core utilization maximization
+- Memory coalescing and bandwidth optimization
+
+CPU Optimization (deployment):
+- MKL-DNN kernel fusion (inference)
+- SIMD vectorization (AVX2 for INT8)
 - Cache-aware memory layout
-- Operator fusion (reduce memory bandwidth)
 ```
 
 **Sub-tasks:**
 1. **Profiling & Bottleneck Analysis** (2 days)
-   - Profile current inference pipeline
-   - Identify hotspots (SSM scan, MoE routing, matmuls)
-   - Measure memory bandwidth utilization
-   - Analyze cache misses
+   - Profile A30 inference pipeline (nsys, nvprof)
+   - Identify GPU memory bandwidth bottlenecks
+   - Profile CPU inference (local machine)
+   - Analyze kernel fusion opportunities
 
-2. **Kernel Fusion Implementation** (4 days)
-   - Create `utils/fused_kernels.py`
-   - Implement fused SSM scan operations
-   - Add fused MoE expert selection + computation
-   - Use `torch.jit.script` for kernel compilation
-   - Integrate MKL-DNN where applicable
+2. **CUDA Kernel Implementation** (4 days)
+   - Create `utils/fused_kernels.py` (code locally)
+   - Implement fused SSM scan (CUDA kernel)
+   - Add fused MoE routing (expert selection + compute)
+   - Optimize memory access patterns
+   - Create HPC job: `jobs/phase7_task4_kernels.sh`
 
-3. **Memory Optimization** (3 days)
-   - Optimize tensor layouts (NHWC vs NCHW)
-   - Add in-place operations where safe
-   - Reduce intermediate tensor allocations
-   - Profile memory bandwidth improvements
+3. **CPU Kernel Optimization** (3 days)
+   - MKL-DNN integration for deployment
+   - TorchScript compilation (`torch.jit.script`)
+   - ONNX export with optimizations
+   - Test on local CPU (verify portability)
 
 4. **Kernel Benchmarking** (2 days)
-   - Compare fused vs unfused kernels
-   - Measure end-to-end inference speedup
+   - Compare A30 CUDA vs unfused baseline
+   - Measure CPU deployment speedup
    - Generate `reports/phase7_kernel_optimization.md`
 
 **Expected Outputs:**
@@ -454,12 +477,13 @@ def profile_model(model, input_data):
 
 | Risk | Likelihood | Impact | Mitigation |
 |------|-----------|--------|------------|
-| **INT4 quality degradation > 30%** | Medium | High | Implement QAT, use mixed-precision fallback |
+| **INT4 quality degradation > 30%** | Low | High | A30 GPU enables fast QAT iteration, mixed-precision fallback |
 | **Pruning breaks SSM state** | Medium | High | Preserve SSM layers, prune MoE experts only |
-| **CPU-only limits speed gains** | High | Medium | Focus on inference optimization, accept slower training |
-| **bitsandbytes CPU mode unstable** | Low | Medium | Fallback to PyTorch native quantization |
-| **Kernel fusion minimal gains** | Medium | Low | Document findings, prioritize other tasks |
-| **Checkpoint compatibility issues** | Low | High | Maintain backward compatibility, version checkpoints |
+| **HPC job queue delays** | Low | Medium | Submit jobs off-peak, use 2-day time limit efficiently |
+| **bitsandbytes GPU compatibility** | Very Low | Medium | A30 fully supported, fallback to PyTorch native if needed |
+| **CUDA kernel complexity** | Medium | Low | Start with TorchScript, custom CUDA if time permits |
+| **Checkpoint compatibility** | Low | High | Maintain backward compatibility, version checkpoints |
+| **VRAM limitations** | Very Low | Low | 24GB A30 is more than sufficient for tiny model |
 
 ---
 
@@ -488,24 +512,40 @@ def profile_model(model, input_data):
 
 ## Timeline & Milestones
 
+**🚀 GPU-ACCELERATED TIMELINE (NVIDIA A30)**
+
 ```
-Week 1-2:  Task 1 - Native INT4 Implementation
-    Milestone: 25.8× compression achieved
+Week 1:    Task 1 - GPU-Native INT4 Quantization (A30)
+           Milestone: 25.8× compression achieved
+           GPU Advantage: 5-10× faster calibration
 
-Week 3-4:  Task 2 - Structured Pruning
-    Milestone: 43.1× compression achieved
+Week 2:    Task 2 - GPU-Accelerated Structured Pruning
+           Milestone: 43.1× compression achieved
+           GPU Advantage: 10× faster fine-tuning
 
-Week 5-6:  Task 3 - Mixed-Precision Inference
-    Milestone: 56.0× compression achieved
+Week 3:    Task 3 - Mixed-Precision with Tensor Cores
+           Milestone: 56.0× compression achieved
+           GPU Advantage: 20-30× faster FP16 training
 
-Week 7:    Task 4 - Advanced Kernel Optimization
-    Milestone: 1.5-2× inference speedup
+Week 4-5:  Task 4 - CUDA + CPU Kernel Optimization
+           Milestone: 1.5-2× inference speedup (both GPU/CPU)
+           Dual-target optimization (A30 CUDA + CPU deployment)
 
-Week 8:    Integration, Final Benchmarking & Reporting
-    Milestone: Phase 7 complete, 50-100× target met
+Week 5:    Final Integration & Benchmarking
+           Milestone: Phase 7 complete, 50-100× target met
 ```
 
-**Total Duration:** 8 weeks (2 months)
+**Total Duration:** 5 weeks (vs 8 weeks CPU-only = 37.5% time savings!)
+
+**GPU vs CPU Comparison:**
+- **Original CPU-only timeline:** 8 weeks
+- **GPU-accelerated timeline:** 5 weeks  
+- **Time saved:** 3 weeks (37.5% faster)
+- **Key accelerations:**
+  - Task 1: 2 weeks → 1 week (GPU quantization)
+  - Task 2: 2 weeks → 1 week (GPU fine-tuning)
+  - Task 3: 1.5 weeks → 1 week (Tensor Cores)
+  - Task 4: 1.5 weeks → 1.5 weeks (CUDA kernels added)
 
 ---
 
@@ -558,41 +598,65 @@ Week 8:    Integration, Final Benchmarking & Reporting
 
 ## Hardware Upgrade Path (Optional)
 
-If Phase 7 progress is bottlenecked by CPU-only mode, consider:
+**✅ HPC GPU AVAILABLE - NO LOCAL UPGRADE NEEDED!**
 
-**Minimum GPU Upgrade:**
+The **NVIDIA A30 on Texas A&M HPC** provides enterprise-grade acceleration:
+- ✅ 24GB VRAM (8× more than consumer GPUs)
+- ✅ Ampere Tensor Cores (FP16/INT8 acceleration)
+- ✅ Compute Capability 8.0 (all modern features)
+- ✅ Zero cost (HPC cluster access included)
+
+**Local Machine (Optional Enhancement):**
+If you want to run GPU experiments locally (not required):
+
+**Budget GPU Option:**
 - NVIDIA GTX 1660 Ti (6GB VRAM) — $200-250 used
-- CUDA 12.0+ support
-- 2-3× faster INT4 quantization and training
+- Good for: Local prototyping, small-scale testing
+- Limitation: No Tensor Cores, limited VRAM
 
-**Recommended GPU Upgrade:**
+**Recommended GPU (if purchasing):**
 - NVIDIA RTX 3060 (12GB VRAM) — $300-400
-- Native FP16 acceleration (Tensor Cores)
-- Mixed-precision training support
-- 5-10× faster than CPU for Phase 7 tasks
+- Ampere Tensor Cores (same as A30)
+- Good for: Full local development workflow
+- Still limited vs A30's 24GB VRAM
 
-**Note:** Phase 7 is **still achievable on CPU**, but will require longer iteration times. All tasks are designed to be CPU-compatible.
+**Reality Check:** The HPC A30 is **superior to any consumer GPU** for Phase 7. Local GPU purchase is **NOT recommended** - the established workflow (code locally, compute on HPC) is optimal.
 
 ---
 
 ## Conclusion
 
-Phase 7 is **ready to begin** with the following status:
+Phase 7 is **ready to begin** with **EXCELLENT GPU ACCELERATION**:
 
-✅ **Hardware diagnostics complete** (CPU-only mode, excellent CPU, sufficient RAM)  
-✅ **Dependencies installed** (optimum, torch-pruning added)  
-✅ **Roadmap defined** (4 tasks, 8-week timeline, 50-100× compression target)  
-✅ **Risk assessment complete** (mitigation strategies identified)  
-✅ **File structure planned** (modular utilities, clear separation of concerns)
+✅ **HPC GPU Available:** NVIDIA A30 (24GB VRAM, Compute 8.0)  
+✅ **GPU-Accelerated Timeline:** 5 weeks (vs 8 weeks CPU-only)  
+✅ **Tensor Core Support:** FP16/INT8 hardware acceleration  
+✅ **Dependencies Installed:** bitsandbytes, optimum, torch-pruning  
+✅ **Dual Environment Ready:** Local dev (VS Code) + HPC compute (Slurm)  
+✅ **Roadmap Optimized:** 4 tasks with GPU-native implementations
 
-**Recommended Start:** Task 1 (Native INT4 Implementation) — this provides the foundation for subsequent compression techniques and immediate 2× compression gain.
+**GPU Acceleration Benefits:**
+- **Task 1 INT4:** 5-10× faster calibration (bitsandbytes GPU mode)
+- **Task 2 Pruning:** 10× faster fine-tuning (A30 vs CPU)
+- **Task 3 Mixed-Precision:** 20-30× faster FP16 (Tensor Cores)
+- **Task 4 Kernels:** Custom CUDA optimization possible
+
+**Recommended Start:** Task 1 (GPU-Native INT4 Implementation)
+1. Code `utils/native_quantization.py` locally in VS Code
+2. Push to GitHub
+3. Pull on HPC, create `jobs/phase7_task1_quantize.sh`
+4. Submit to GPU partition: `sbatch jobs/phase7_task1_quantize.sh`
+5. Monitor with `squeue -u $USER`
+6. Results back via GitHub sync
 
 **Project Status After Phase 7:**
 - **Target Compression:** 50-100× (from 12.9× baseline)
+- **Timeline:** 5 weeks (GPU-accelerated)
 - **Project Completion:** 87.5% (7/8 phases)
 - **Remaining:** Phase 8 (Production Cloud Deployment)
 
 ---
 
 *Roadmap Generated: October 7, 2025*  
+*Roadmap Updated: October 8, 2025 - NVIDIA A30 GPU discovered! ⚡*  
 *Itera-Lite Phase 7: Advanced Optimization — 50-100× Compression Target* 🚀
