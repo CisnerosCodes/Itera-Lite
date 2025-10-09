@@ -57,20 +57,35 @@ def load_model(checkpoint_path: str, device: str = 'cuda') -> tuple:
     checkpoint = torch.load(checkpoint_path, map_location='cpu')
     
     # Extract config
+    # Try to load config from checkpoint
     if 'config' in checkpoint:
         config_dict = checkpoint['config']
-        config = IteraLiteConfig(**config_dict)
+        # Handle both dict and IteraLiteConfig object
+        if isinstance(config_dict, dict):
+            config = IteraLiteConfig(**config_dict)
+        else:
+            config = config_dict
     else:
-        # Use default tiny config
+        # Infer config from model state dict
+        state_dict = checkpoint.get('model_state_dict', checkpoint)
+        vocab_size = state_dict['embedding.weight'].shape[0]
+        hidden_size = state_dict['embedding.weight'].shape[1]
+        num_layers = sum(1 for k in state_dict.keys() if k.startswith('layers.') and '.ssm.in_proj.weight' in k)
+        ssm_state_size = state_dict['layers.0.ssm.ssm.B'].shape[0]
+        num_experts = sum(1 for k in state_dict.keys() if k.startswith('layers.1.moe.layer.experts.') and '.w1.weight' in k)
+        expert_size = state_dict.get('layers.1.moe.layer.experts.0.w1.weight', 
+                                     state_dict.get('layers.0.moe.ffn.w1.weight')).shape[0]
+        
         config = IteraLiteConfig(
-            vocab_size=2000,
-            hidden_size=64,
-            num_layers=4,
-            ssm_state_size=8,
-            num_experts=4,
-            expert_size=32,
+            vocab_size=vocab_size,
+            hidden_size=hidden_size,
+            num_layers=num_layers,
+            ssm_state_size=ssm_state_size,
+            num_experts=num_experts,
+            expert_size=expert_size,
             top_k_experts=2
         )
+        print(f"⚠ Config not found in checkpoint, inferred from state_dict")
     
     # Create model
     model = IteraLiteModel(config)
