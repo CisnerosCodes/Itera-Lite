@@ -1,7 +1,14 @@
 """
 Phase 7 Task 3: Mixed-Precision Optimization Main Script
 
-Applies layer-wise INT8/FP16 precision to Itera-Lite SSM architecture.
+Applies layer-wise INT8/FP16 precision to     # Get expand factor from projection dimensions
+    if first_layer_prefix + 'in_proj.weight' in state_dict:
+        d_inner = state_dict[first_layer_prefix + 'in_proj.weight'].shape[0]
+        expand = d_inner // hidden_size
+        print(f"  ssm_expand: {expand} (d_inner={d_inner}, hidden_size={hidden_size})")
+    else:
+        expand = 2
+        print(f"  ssm_expand: {expand} (default)")te SSM architecture.
 Reuses checkpoint loading logic from Task 2 and config inference from Task 1.
 
 Expected Results:
@@ -67,9 +74,14 @@ def load_checkpoint_with_inference(checkpoint_path: str, device: str = 'cuda'):
     print("="*60)
     
     # Infer configuration from checkpoint (Task 1 logic)
-    vocab_size, d_model = state_dict['embeddings.token_embeddings.weight'].shape
-    print(f"  vocab_size: {vocab_size} (from embeddings)")
-    print(f"  d_model: {d_model} (from embeddings)")
+    vocab_size = state_dict['embedding.weight'].shape[0]
+    hidden_size = state_dict['embedding.weight'].shape[1]
+    print(f"  vocab_size: {vocab_size} (from embedding)")
+    print(f"  hidden_size: {hidden_size} (from embedding)")
+    
+    # Get max_seq_length from position embeddings
+    max_seq_length = state_dict['position_embedding.weight'].shape[0]
+    print(f"  max_seq_length: {max_seq_length} (from position_embedding)")
     
     # Count layers
     layer_indices = set()
@@ -86,11 +98,11 @@ def load_checkpoint_with_inference(checkpoint_path: str, device: str = 'cuda'):
     
     # Get d_state from A_log shape
     if first_layer_prefix + 'A_log' in state_dict:
-        d_state = state_dict[first_layer_prefix + 'A_log'].shape[0] // d_model
-        print(f"  ssm_d_state: {d_state} (from A_log)")
+        d_state = state_dict[first_layer_prefix + 'A_log'].shape[0] // hidden_size
+        print(f"  ssm_state_size: {d_state} (from A_log)")
     else:
         d_state = 64
-        print(f"  ssm_d_state: {d_state} (default)")
+        print(f"  ssm_state_size: {d_state} (default)")
     
     # Get d_conv from conv1d
     if first_layer_prefix + 'conv1d.weight' in state_dict:
@@ -103,15 +115,15 @@ def load_checkpoint_with_inference(checkpoint_path: str, device: str = 'cuda'):
     # Get expand factor from in_proj
     if first_layer_prefix + 'in_proj.weight' in state_dict:
         d_inner = state_dict[first_layer_prefix + 'in_proj.weight'].shape[0]
-        expand = d_inner // d_model
-        print(f"  ssm_expand: {expand} (d_inner={d_inner}, d_model={d_model})")
+        expand = d_inner // hidden_size
+        print(f"  ssm_expand: {expand} (d_inner={d_inner}, hidden_size={hidden_size})")
     else:
         expand = 2
         print(f"  ssm_expand: {expand} (default)")
     
     # MoE parameters (checkpoint may not have MoE - Task 2 lesson)
     num_experts = train_config.get('num_experts', 4)
-    expert_size = train_config.get('expert_size', d_model)  # Default to hidden_size
+    expert_size = train_config.get('expert_size', hidden_size)  # Default to hidden_size
     top_k_experts = train_config.get('top_k_experts', 2)
     print(f"  num_experts: {num_experts} (from config, may not be present)")
     print(f"  top_k_experts: {top_k_experts} (from config)")
@@ -128,7 +140,7 @@ def load_checkpoint_with_inference(checkpoint_path: str, device: str = 'cuda'):
     # Create config
     config = IteraLiteConfig(
         vocab_size=vocab_size,
-        hidden_size=d_model,
+        hidden_size=hidden_size,
         num_layers=n_layers,
         ssm_state_size=d_state,
         ssm_conv_kernel=d_conv,
