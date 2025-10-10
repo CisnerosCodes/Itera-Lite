@@ -1,14 +1,7 @@
 """
 Phase 7 Task 3: Mixed-Precision Optimization Main Script
 
-Applies layer-wise INT8/FP16 precision to     # Get expand factor from projection dimensions
-    if first_layer_prefix + 'in_proj.weight' in state_dict:
-        d_inner = state_dict[first_layer_prefix + 'in_proj.weight'].shape[0]
-        expand = d_inner // hidden_size
-        print(f"  ssm_expand: {expand} (d_inner={d_inner}, hidden_size={hidden_size})")
-    else:
-        expand = 2
-        print(f"  ssm_expand: {expand} (default)")te SSM architecture.
+Applies layer-wise INT8/FP16 precision to Itera-Lite SSM architecture.
 Reuses checkpoint loading logic from Task 2 and config inference from Task 1.
 
 Expected Results:
@@ -130,8 +123,8 @@ def load_checkpoint_with_inference(checkpoint_path: str, device: str = 'cuda'):
     print(f"  expert_size: {expert_size} (from config)")
     
     # Get max_seq_length from position embeddings
-    if 'embeddings.position_embeddings.weight' in state_dict:
-        max_seq_length = state_dict['embeddings.position_embeddings.weight'].shape[0]
+    if 'position_embedding.weight' in state_dict:
+        max_seq_length = state_dict['position_embedding.weight'].shape[0]
         print(f"  max_seq_length: {max_seq_length} (from position embeddings)")
     else:
         max_seq_length = 128
