@@ -66,82 +66,40 @@ def load_checkpoint_with_inference(checkpoint_path: str, device: str = 'cuda'):
     print("INFERRING MODEL CONFIGURATION")
     print("="*60)
     
-    # Infer configuration from checkpoint (Task 1 logic)
+    # Infer configuration from checkpoint (matching phase7_prune.py logic)
     vocab_size = state_dict['embedding.weight'].shape[0]
     hidden_size = state_dict['embedding.weight'].shape[1]
-    print(f"  vocab_size: {vocab_size} (from embedding)")
-    print(f"  hidden_size: {hidden_size} (from embedding)")
-    
-    # Get max_seq_length from position embeddings
     max_seq_length = state_dict['position_embedding.weight'].shape[0]
-    print(f"  max_seq_length: {max_seq_length} (from position_embedding)")
+    num_layers = sum(1 for k in state_dict.keys() if k.startswith('layers.') and '.ssm.in_proj.weight' in k)
+    ssm_state_size = state_dict['layers.0.ssm.ssm.B'].shape[0]
+    num_experts = sum(1 for k in state_dict.keys() if k.startswith('layers.1.moe.moe.experts.') and '.w1.weight' in k)
     
-    # Count layers
-    layer_indices = set()
+    # Get expert size (try different possible keys)
+    expert_size = 64  # default
     for key in state_dict.keys():
-        if key.startswith('layers.'):
-            parts = key.split('.')
-            if len(parts) > 1 and parts[1].isdigit():
-                layer_indices.add(int(parts[1]))
-    n_layers = max(layer_indices) + 1 if layer_indices else 4
-    print(f"  n_layers: {n_layers} (from state_dict keys)")
+        if 'experts.0.w1.weight' in key:
+            expert_size = state_dict[key].shape[0]
+            break
     
-    # Infer SSM parameters from first layer
-    first_layer_prefix = 'layers.0.ssm.'
-    
-    # Get d_state from B matrix shape (d_state is B.shape[0])
-    if first_layer_prefix + 'ssm.B' in state_dict:
-        d_state = state_dict[first_layer_prefix + 'ssm.B'].shape[0]
-        print(f"  ssm_state_size: {d_state} (from B matrix)")
-    else:
-        d_state = 64
-        print(f"  ssm_state_size: {d_state} (default)")
-    
-    # Get d_conv from conv1d
-    if first_layer_prefix + 'conv1d.weight' in state_dict:
-        d_conv = state_dict[first_layer_prefix + 'conv1d.weight'].shape[2]
-        print(f"  ssm_conv_kernel: {d_conv} (from conv1d)")
-    else:
-        d_conv = 4
-        print(f"  ssm_conv_kernel: {d_conv} (default)")
-    
-    # Get expand factor from in_proj
-    if first_layer_prefix + 'in_proj.weight' in state_dict:
-        d_inner = state_dict[first_layer_prefix + 'in_proj.weight'].shape[0]
-        expand = d_inner // hidden_size
-        print(f"  ssm_expand_factor: {expand} (d_inner={d_inner}, hidden_size={hidden_size})")
-    else:
-        expand = 2
-        print(f"  ssm_expand_factor: {expand} (default)")
-    
-    # MoE parameters (checkpoint may not have MoE - Task 2 lesson)
-    num_experts = train_config.get('num_experts', 4)
-    expert_size = train_config.get('expert_size', hidden_size)  # Default to hidden_size
-    top_k_experts = train_config.get('top_k_experts', 2)
-    print(f"  num_experts: {num_experts} (from config, may not be present)")
-    print(f"  top_k_experts: {top_k_experts} (from config)")
-    print(f"  expert_size: {expert_size} (from config)")
-    
-    # Get max_seq_length from position embeddings
-    if 'position_embedding.weight' in state_dict:
-        max_seq_length = state_dict['position_embedding.weight'].shape[0]
-        print(f"  max_seq_length: {max_seq_length} (from position embeddings)")
-    else:
-        max_seq_length = 128
-        print(f"  max_seq_length: {max_seq_length} (default)")
+    print(f"  vocab_size: {vocab_size}")
+    print(f"  hidden_size: {hidden_size}")
+    print(f"  max_seq_length: {max_seq_length}")
+    print(f"  num_layers: {num_layers}")
+    print(f"  ssm_state_size: {ssm_state_size}")
+    print(f"  num_experts: {num_experts}")
+    print(f"  expert_size: {expert_size}")
+    print(f"  top_k_experts: 2 (default)")
     
     # Create config
     config = IteraLiteConfig(
         vocab_size=vocab_size,
         hidden_size=hidden_size,
-        num_layers=n_layers,
-        ssm_state_size=d_state,
-        ssm_conv_kernel=d_conv,
-        ssm_expand_factor=expand,
+        max_seq_length=max_seq_length,
+        num_layers=num_layers,
+        ssm_state_size=ssm_state_size,
         num_experts=num_experts,
         expert_size=expert_size,
-        top_k_experts=top_k_experts,
-        max_seq_length=max_seq_length,
+        top_k_experts=2
     )
     
     print("="*60)
