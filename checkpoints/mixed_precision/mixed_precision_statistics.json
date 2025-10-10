@@ -1,0 +1,31 @@
+{
+  "architecture": {
+    "total_params": 1754400,
+    "int8_params": 1040384,
+    "fp16_params": 400416
+  },
+  "compression": {
+    "fp32_memory_mb": 6.6925048828125,
+    "mixed_memory_mb": 2.95220947265625,
+    "compression_ratio": 2.2669478384915958,
+    "memory_saved_mb": 3.74029541015625,
+    "int8_params": 1040384,
+    "fp16_params": 400416,
+    "fp32_params": 313600,
+    "total_params": 1754400
+  },
+  "benchmark": {
+    "original_perplexity": Infinity,
+    "mixed_perplexity": Infinity,
+    "perplexity_increase_pct": NaN,
+    "original_time": 6.518308639526367,
+    "mixed_time": 0.008228540420532227,
+    "speedup": 792.1585489525686
+  },
+  "config": {
+    "strategy": "conservative",
+    "calibration_method": "percentile",
+    "calibration_samples": 1000,
+    "percentile": 99.99
+  }
+}
