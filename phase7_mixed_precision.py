@@ -89,10 +89,10 @@ def load_checkpoint_with_inference(checkpoint_path: str, device: str = 'cuda'):
     # Infer SSM parameters from first layer
     first_layer_prefix = 'layers.0.ssm.'
     
-    # Get d_state from A_log shape
-    if first_layer_prefix + 'A_log' in state_dict:
-        d_state = state_dict[first_layer_prefix + 'A_log'].shape[0] // hidden_size
-        print(f"  ssm_state_size: {d_state} (from A_log)")
+    # Get d_state from B matrix shape (d_state is B.shape[0])
+    if first_layer_prefix + 'ssm.B' in state_dict:
+        d_state = state_dict[first_layer_prefix + 'ssm.B'].shape[0]
+        print(f"  ssm_state_size: {d_state} (from B matrix)")
     else:
         d_state = 64
         print(f"  ssm_state_size: {d_state} (default)")
@@ -100,19 +100,19 @@ def load_checkpoint_with_inference(checkpoint_path: str, device: str = 'cuda'):
     # Get d_conv from conv1d
     if first_layer_prefix + 'conv1d.weight' in state_dict:
         d_conv = state_dict[first_layer_prefix + 'conv1d.weight'].shape[2]
-        print(f"  ssm_d_conv: {d_conv} (from conv1d)")
+        print(f"  ssm_conv_kernel: {d_conv} (from conv1d)")
     else:
         d_conv = 4
-        print(f"  ssm_d_conv: {d_conv} (default)")
+        print(f"  ssm_conv_kernel: {d_conv} (default)")
     
     # Get expand factor from in_proj
     if first_layer_prefix + 'in_proj.weight' in state_dict:
         d_inner = state_dict[first_layer_prefix + 'in_proj.weight'].shape[0]
         expand = d_inner // hidden_size
-        print(f"  ssm_expand: {expand} (d_inner={d_inner}, hidden_size={hidden_size})")
+        print(f"  ssm_expand_factor: {expand} (d_inner={d_inner}, hidden_size={hidden_size})")
     else:
         expand = 2
-        print(f"  ssm_expand: {expand} (default)")
+        print(f"  ssm_expand_factor: {expand} (default)")
     
     # MoE parameters (checkpoint may not have MoE - Task 2 lesson)
     num_experts = train_config.get('num_experts', 4)
