@@ -114,11 +114,44 @@ def load_checkpoint_with_inference(checkpoint_path: str, device: str = 'cuda') -
     # Create model
     model = IteraLiteModel(config)
     
-    # Load state dict
+    # Load state dict with compatibility handling
     if 'model_state_dict' in checkpoint:
-        model.load_state_dict(checkpoint['model_state_dict'])
+        state_dict = checkpoint['model_state_dict']
     else:
-        model.load_state_dict(checkpoint)
+        state_dict = checkpoint
+    
+    # Fix checkpoint format compatibility
+    # Handle different MoE naming conventions: layer.experts vs moe.experts
+    new_state_dict = {}
+    keys_converted = []
+    for key, value in state_dict.items():
+        # Convert old format: layers.X.moe.layer.experts -> layers.X.moe.moe.experts
+        if '.moe.layer.' in key:
+            new_key = key.replace('.moe.layer.', '.moe.moe.')
+            new_state_dict[new_key] = value
+            keys_converted.append(f"{key} -> {new_key}")
+        else:
+            new_state_dict[key] = value
+    
+    if keys_converted:
+        print(f"⚠ Converted {len(keys_converted)} checkpoint keys for compatibility")
+        print(f"  Example: {keys_converted[0]}")
+    
+    # Load with strict=False to handle any remaining mismatches
+    missing_keys, unexpected_keys = model.load_state_dict(new_state_dict, strict=False)
+    
+    if missing_keys:
+        print(f"⚠ Warning: {len(missing_keys)} missing keys in checkpoint")
+        if len(missing_keys) <= 5:
+            for key in missing_keys:
+                print(f"    - {key}")
+    
+    if unexpected_keys:
+        print(f"⚠ Warning: {len(unexpected_keys)} unexpected keys in checkpoint")
+        if len(unexpected_keys) <= 5:
+            for key in unexpected_keys:
+                print(f"    - {key}")
+
     
     model = model.to(device)
     model.eval()
