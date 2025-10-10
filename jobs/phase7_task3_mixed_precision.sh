@@ -57,6 +57,10 @@ fi
 # Change to project directory
 cd "$HOME/Itera-Lite" || { echo "❌ ERROR: Failed to cd to Itera-Lite"; exit 1; }
 
+# Set PYTHONPATH to include current directory
+export PYTHONPATH="${PWD}:${PYTHONPATH}"
+echo "PYTHONPATH: $PYTHONPATH"
+
 # Verify Python
 echo ""
 echo "Python Environment:"
@@ -93,8 +97,10 @@ python -c "import torch; import numpy; import matplotlib; print('✓ All require
 
 # Check custom modules
 echo "Checking custom modules..."
-python -c "from models.itera_lite import IteraLite; from utils.mixed_precision import MixedPrecisionConverter; print('✓ Custom modules loaded successfully')" || {
+python -c "import sys; sys.path.insert(0, '.'); from models.itera_lite import IteraLiteModel; from utils.mixed_precision import MixedPrecisionConverter; print('✓ Custom modules loaded successfully')" || {
     echo "❌ ERROR: Failed to import custom modules"
+    echo "Attempting to show error details..."
+    python -c "import sys; sys.path.insert(0, '.'); from models.itera_lite import IteraLiteModel; from utils.mixed_precision import MixedPrecisionConverter"
     exit 1
 }
 

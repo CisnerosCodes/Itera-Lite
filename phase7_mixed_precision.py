@@ -26,8 +26,8 @@ import numpy as np
 # Import model components
 import sys
 sys.path.append(str(Path(__file__).parent))
-from models.itera_lite import IteraLite
-from models.config import ModelConfig
+from models.itera_lite import IteraLiteModel
+from models.config import IteraLiteConfig
 from utils.mixed_precision import (
     MixedPrecisionConfig,
     MixedPrecisionConverter,
@@ -110,11 +110,12 @@ def load_checkpoint_with_inference(checkpoint_path: str, device: str = 'cuda'):
         print(f"  ssm_expand: {expand} (default)")
     
     # MoE parameters (checkpoint may not have MoE - Task 2 lesson)
-    moe_num_experts = train_config.get('moe_num_experts', 4)
-    moe_top_k = train_config.get('moe_top_k', 2)
-    moe_expert_capacity = train_config.get('moe_expert_capacity', 1.0)
-    print(f"  moe_num_experts: {moe_num_experts} (from config, may not be present)")
-    print(f"  moe_top_k: {moe_top_k} (from config)")
+    num_experts = train_config.get('num_experts', 4)
+    expert_size = train_config.get('expert_size', d_model)  # Default to hidden_size
+    top_k_experts = train_config.get('top_k_experts', 2)
+    print(f"  num_experts: {num_experts} (from config, may not be present)")
+    print(f"  top_k_experts: {top_k_experts} (from config)")
+    print(f"  expert_size: {expert_size} (from config)")
     
     # Get max_seq_length from position embeddings
     if 'embeddings.position_embeddings.weight' in state_dict:
@@ -125,16 +126,16 @@ def load_checkpoint_with_inference(checkpoint_path: str, device: str = 'cuda'):
         print(f"  max_seq_length: {max_seq_length} (default)")
     
     # Create config
-    config = ModelConfig(
+    config = IteraLiteConfig(
         vocab_size=vocab_size,
-        d_model=d_model,
-        n_layers=n_layers,
-        ssm_d_state=d_state,
-        ssm_d_conv=d_conv,
-        ssm_expand=expand,
-        moe_num_experts=moe_num_experts,
-        moe_top_k=moe_top_k,
-        moe_expert_capacity=moe_expert_capacity,
+        hidden_size=d_model,
+        num_layers=n_layers,
+        ssm_state_size=d_state,
+        ssm_conv_kernel=d_conv,
+        ssm_expand_factor=expand,
+        num_experts=num_experts,
+        expert_size=expert_size,
+        top_k_experts=top_k_experts,
         max_seq_length=max_seq_length,
     )
     
@@ -142,7 +143,7 @@ def load_checkpoint_with_inference(checkpoint_path: str, device: str = 'cuda'):
     
     # Create model
     print("\nInitializing model...")
-    model = IteraLite(config)
+    model = IteraLiteModel(config)
     
     # Convert old checkpoint format (Task 2 lesson)
     print("Converting checkpoint format (.moe.layer. → .moe.moe.)...")
