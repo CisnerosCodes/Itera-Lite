@@ -308,39 +308,27 @@ class StructuredPruner:
         Returns:
             Total parameters removed
         """
-        total_removed = 0
+        # CRITICAL: SSM blocks use residual connections (output = residual + x)
+        # This means input and output dimensions MUST match exactly (d_model)
+        # 
+        # SSM architecture with residual:
+        #   residual = x (d_model)
+        #   x = norm(x)
+        #   x = in_proj(x)     # d_model -> d_inner*2
+        #   x = conv1d(x)      # depthwise on d_inner
+        #   x = ssm(x)         # state space
+        #   x = out_proj(x)    # d_inner -> d_model (MUST output d_model!)
+        #   return residual + x  # Requires both to be d_model!
+        #
+        # Pruning ANY layer breaks either:
+        # 1. Dimension chain (in_proj <-> conv1d)
+        # 2. Residual connection (out_proj MUST output exactly d_model)
+        #
+        # SOLUTION: Preserve entire SSM blocks (critical for sequence modeling)
+        # Focus pruning on MoE experts (60% sparsity, high redundancy)
         
-        # SSM blocks have connected layers that must be pruned consistently:
-        # in_proj -> conv1d -> ssm -> out_proj
-        # We need to maintain dimension compatibility
-        
-        # IMPORTANT: For SSM blocks, we preserve the full architecture
-        # to avoid dimension mismatches between layers.
-        # Only prune the expansion/compression layers (in_proj, out_proj)
-        # which have clear input/output boundaries.
-        
-        # DON'T prune in_proj or conv1d - they're tightly coupled
-        # The conv1d is depthwise and expects exact input channels from in_proj
-        
-        # Only prune out_proj (safe - just compresses back to d_model)
-        if hasattr(ssm_block, 'out_proj'):
-            layer_name = f'layer_{layer_idx}.ssm.out_proj'
-            # Reduce sparsity to be more conservative
-            pruned_layer, removed = self.prune_linear_layer(
-                ssm_block.out_proj,
-                self.config.ssm_out_proj_sparsity * 0.5,  # Be more conservative
-                layer_name
-            )
-            ssm_block.out_proj = pruned_layer
-            total_removed += removed
-        
-        # PRESERVE all other SSM components to maintain architecture integrity:
-        # - in_proj (coupled with conv1d)
-        # - conv1d (depthwise - needs exact channels)
-        # - ssm (state space parameters A, B, C, D - critical)
-        # - delta_proj (controls SSM dynamics)
-        
-        return total_removed
+        print(f"  [PRESERVE] SSM block (architectural integrity)")
+        return 0  # No parameters pruned from SSM
     
     def prune_moe_layer(self, moe_layer, layer_idx: int) -> int:
         """
