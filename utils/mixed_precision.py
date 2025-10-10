@@ -68,8 +68,8 @@ def get_conservative_precision_map() -> Dict[str, str]:
     """
     return {
         # Embeddings: INT8 (large, less sensitive)
-        'embeddings.token_embeddings.weight': 'int8',
-        'embeddings.position_embeddings.weight': 'int8',
+        'embedding.weight': 'int8',
+        'position_embedding.weight': 'int8',
         
         # SSM Layers: ALL FP16 (critical for quality)
         'layers.*.ssm.norm.weight': 'fp16',
@@ -109,8 +109,8 @@ def get_aggressive_precision_map() -> Dict[str, str]:
     """
     return {
         # Embeddings: INT8
-        'embeddings.token_embeddings.weight': 'int8',
-        'embeddings.position_embeddings.weight': 'int8',
+        'embedding.weight': 'int8',
+        'position_embedding.weight': 'int8',
         
         # SSM: Mixed INT8/FP16
         'layers.*.ssm.norm.weight': 'fp16',
