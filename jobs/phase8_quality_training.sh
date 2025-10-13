@@ -4,7 +4,7 @@
 #SBATCH --error=logs/phase8_quality_training_%j.err
 #SBATCH --time=02:00:00
 #SBATCH --partition=gpu
-#SBATCH --gres=gpu:A30:1
+#SBATCH --gres=gpu:1
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
