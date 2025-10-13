@@ -59,7 +59,7 @@ def load_model(checkpoint_path='checkpoints/itera_lite_tiny_best.pt', device='cp
     model.eval()
     model.to(device)
     
-    print(f"✅ Model loaded successfully!")
+    print(f"[OK] Model loaded successfully!")
     print(f"   Parameters: {sum(p.numel() for p in model.parameters()):,}")
     print(f"   Vocab size: {config.vocab_size}")
     print(f"   Max sequence length: {config.max_seq_length}")
@@ -72,7 +72,7 @@ def load_tokenizer(tokenizer_path='data/tokenizer_tiny.json'):
     print(f"Loading tokenizer from {tokenizer_path}...")
     
     if not Path(tokenizer_path).exists():
-        print(f"⚠️  Tokenizer not found at {tokenizer_path}")
+        print(f"[WARN] Tokenizer not found at {tokenizer_path}")
         print(f"   Available tokenizers:")
         for p in Path('data').glob('tokenizer*.json'):
             print(f"   - {p}")
@@ -85,10 +85,10 @@ def load_tokenizer(tokenizer_path='data/tokenizer_tiny.json'):
     vocab = tokenizer_data.get('model', {}).get('vocab', {})
     
     if not vocab:
-        print("⚠️  Could not load vocab from tokenizer")
+        print("[WARN] Could not load vocab from tokenizer")
         return None
     
-    print(f"✅ Tokenizer loaded! Vocab size: {len(vocab)}")
+    print(f"[OK] Tokenizer loaded! Vocab size: {len(vocab)}")
     return vocab
 
 
@@ -277,9 +277,9 @@ This script demonstrates how to:
     print(f"\n{'='*70}")
     print(f"SUMMARY")
     print(f"{'='*70}")
-    print(f"✅ Model loaded and working!")
-    print(f"✅ Inference speed: {throughput:.1f} tokens/sec on {device.upper()}")
-    print(f"✅ Model size: {sum(p.numel() for p in model.parameters()):,} parameters")
+    print(f"[OK] Model loaded and working!")
+    print(f"[OK] Inference speed: {throughput:.1f} tokens/sec on {device.upper()}")
+    print(f"[OK] Model size: {sum(p.numel() for p in model.parameters()):,} parameters")
     print(f"\nTo use the model in your own code:")
     print(f"```python")
     print(f"from run_inference import load_model, generate_text")
