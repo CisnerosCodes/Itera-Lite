@@ -525,4 +525,25 @@ Model Parameters:       886K (quality model)
 
 ---
 
-*Last Updated: October 13, 2025*
+## 🤖 Development Notes
+
+This project was developed with AI assistance (Claude) as a research and learning tool for exploring SSM compression techniques. The research methodology, experimental design, and key findings are sound and have been systematically validated through 19 HPC job iterations. However, some code integration aspects may require additional testing.
+
+**What has been verified:**
+- ✅ Core research findings (SSM pruning constraint, compression ratios)
+- ✅ Main scripts: `run_inference.py`, `phase8_compress.py`, `validate_local.py`
+- ✅ Experimental methodology and results documentation
+- ✅ HPC training and compression workflows
+
+**Known limitations:**
+- ⚠️ Some utility functions may need additional integration testing
+- ⚠️ Full end-to-end pipeline validation ongoing
+- ⚠️ Documentation may reference components in varying states
+
+**For reproduction:**
+Core experimental results are reproducible via the validated scripts listed above. For questions about specific reproduction steps, please open an issue or contact directly.
+
+**Lessons learned:**
+This project taught the importance of test-driven development and incremental validation when using AI coding assistants. Future projects (see [Project Noēsis](https://github.com/CisnerosCodes/noesis)) implement rigorous testing practices from the start, including comprehensive unit tests, integration tests, and systematic validation at each development stage.
+
+*Last Updated: October 14, 2025*
