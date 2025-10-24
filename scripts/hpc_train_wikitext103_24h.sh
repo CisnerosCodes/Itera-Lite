@@ -1,24 +1,18 @@
 #!/bin/bash
-#SBATCH --job-name=itera_lite_wikitext103
+#SBATCH --job-name=itera_lite_24h
 #SBATCH --output=logs/train_wikitext103_%j.out
 #SBATCH --error=logs/train_wikitext103_%j.err
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu:1
-#SBATCH --time=48:00:00
+#SBATCH --time=24:00:00
 #SBATCH --mem=16G
 #SBATCH --cpus-per-task=4
 
-# Itera-Lite Production Training on WikiText-103
-# Phase 4: HPC GPU Training
-#
-# This script:
-# 1. Sets up the environment
-# 2. Downloads WikiText-103 if needed
-# 3. Runs production training with full metrics
-# 4. Saves checkpoints and logs
+# Itera-Lite Production Training on WikiText-103 (24-hour version)
+# Good for testing or partial training runs
 
 echo "========================================================================"
-echo "ITERA-LITE WIKITEXT-103 TRAINING (HPC)"
+echo "ITERA-LITE WIKITEXT-103 TRAINING (HPC - 24h)"
 echo "========================================================================"
 echo "Job ID: $SLURM_JOB_ID"
 echo "Node: $SLURM_NODELIST"
@@ -27,7 +21,7 @@ echo "========================================================================"
 
 # Load modules (adjust based on your HPC environment)
 module load Python/3.10.8
-module load CUDA/11.8.0  # Adjust CUDA version if needed
+module load CUDA/11.8.0
 
 # Navigate to project directory
 cd $SLURM_SUBMIT_DIR
@@ -76,11 +70,10 @@ else
     echo "WikiText-103 dataset already exists. Skipping download."
 fi
 
-# Update config to use GPU
-echo "Updating config for GPU training..."
+# Update config to use GPU (shorter training for 24h)
+echo "Updating config for GPU training (24h run)..."
 cat > configs/training_config_wikitext103_hpc.yaml << 'EOL'
-# HPC GPU Training Configuration for Itera-Lite on WikiText-103
-# Auto-generated for HPC cluster
+# HPC GPU Training Configuration (24-hour run)
 
 model:
   type: "itera_lite"
@@ -93,13 +86,13 @@ dataset:
   seq_length: 128
 
 training:
-  batch_size: 64  # Increased for GPU
-  gradient_accumulation_steps: 2  # Effective batch = 128
+  batch_size: 64
+  gradient_accumulation_steps: 2
   learning_rate: 0.001
   warmup_steps: 500
   lr_schedule: "cosine"
   min_lr: 0.00005
-  max_epochs: 1500
+  max_epochs: 500  # Reduced for 24h window
   max_steps: null
   weight_decay: 0.01
   dropout: 0.1
@@ -109,7 +102,7 @@ evaluation:
   eval_every_epochs: 5
   eval_every_steps: null
   save_every_epochs: 25
-  keep_best_n: 3
+  keep_best_n: 5
 
 early_stopping:
   enabled: true
@@ -141,7 +134,7 @@ checkpoints:
   save_scheduler: true
 
 hardware:
-  device: "cuda"  # GPU enabled
+  device: "cuda"
   num_workers: 4
   pin_memory: true
 
@@ -182,8 +175,8 @@ BACKUP_DIR="/scratch/user/$(whoami)/itera_lite_backups/run_${SLURM_JOB_ID}"
 mkdir -p $BACKUP_DIR
 cp -r checkpoints/wikitext103_training $BACKUP_DIR/
 cp -r results $BACKUP_DIR/
-cp logs/train_wikitext103_${SLURM_JOB_ID}.out $BACKUP_DIR/
-cp logs/train_wikitext103_${SLURM_JOB_ID}.err $BACKUP_DIR/
+cp logs/train_wikitext103_${SLURM_JOB_ID}.out $BACKUP_DIR/ 2>/dev/null || true
+cp logs/train_wikitext103_${SLURM_JOB_ID}.err $BACKUP_DIR/ 2>/dev/null || true
 
 echo "Backup saved to: $BACKUP_DIR"
 
