@@ -1,0 +1,105 @@
+# PRACTICAL Training Configuration for Itera-Lite
+# Phase 3: Realistic CPU Training
+#
+# This config uses TinyStories (smaller but still real data)
+# or a SUBSET of WikiText-103 for practical CPU training
+#
+# Model: Itera-Lite Tiny (886K parameters)
+# Hardware: CPU
+
+# Model configuration
+model:
+  type: "itera_lite"
+  config: "tiny"
+  vocab_size: 274  # Will be set from tokenizer
+
+# Dataset (choose one)
+dataset:
+  # Option 1: Use existing TinyStories (recommended for CPU)
+  name: "tinystories"
+  path: "data/datasets/tinystories_train.txt"
+  use_file: true
+
+  # Option 2: Use WikiText-103 subset (10% of data)
+  # name: "wikitext103_subset"
+  # path: "data/wikitext103"
+  # use_subset: true
+  # subset_fraction: 0.1  # Use 10% of data (54M tokens)
+
+  seq_length: 128
+  vocab_size: 2000  # Smaller vocab for efficiency
+
+# Training hyperparameters (OPTIMIZED FOR QUALITY)
+training:
+  # Batch size
+  batch_size: 16  # Smaller for CPU
+  gradient_accumulation_steps: 8  # Effective batch = 128
+
+  # Learning rate
+  learning_rate: 0.001  # 1e-3, slightly higher for faster convergence
+  warmup_steps: 500
+  lr_schedule: "cosine"
+  min_lr: 0.00005  # 5e-5
+
+  # Training duration
+  max_epochs: 1500  # Enough for convergence
+  max_steps: null
+
+  # Regularization
+  weight_decay: 0.01
+  dropout: 0.1
+  max_grad_norm: 1.0
+
+# Validation & Checkpointing
+evaluation:
+  eval_every_epochs: 25  # More frequent validation
+  save_every_epochs: 100
+
+# Early stopping (less aggressive)
+early_stopping:
+  enabled: true
+  patience: 50  # Wait 50 epochs
+  min_delta: 0.01
+  metric: "val_perplexity"
+
+# Generation sampling
+generation:
+  enabled: true
+  every_epochs: 50
+  num_samples: 3
+  max_new_tokens: 80
+  temperature: 0.8
+  prompts:
+    - "Once upon a time"
+    - "The little girl"
+    - "In the forest"
+
+# Logging
+logging:
+  use_tensorboard: true
+  tensorboard_dir: "runs"
+  csv_backup: true
+  csv_dir: "results"
+  print_every: 50
+
+# Checkpoints
+checkpoints:
+  dir: "checkpoints/practical_training"
+  save_optimizer: true
+  save_scheduler: true
+
+# Hardware
+hardware:
+  device: "cpu"
+  num_workers: 0
+  pin_memory: false
+
+# Reproducibility
+seed: 42
+
+# ESTIMATED TRAINING TIME (TinyStories, ~150KB):
+# - At 1000 tokens/sec: ~10 minutes per epoch
+# - 1500 epochs: ~250 hours (10 days)
+# - With early stopping: ~100-200 hours (4-8 days)
+#
+# This is PRACTICAL for CPU training and will give you coherent results!

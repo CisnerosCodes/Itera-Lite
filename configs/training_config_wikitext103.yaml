@@ -1,0 +1,107 @@
+# Training Configuration for Itera-Lite on WikiText-103
+# Phase 3: Optimized Hyperparameters
+#
+# Model: Itera-Lite Tiny (886K parameters)
+# Dataset: WikiText-103 (539M tokens)
+# Hardware: CPU (assumed based on project)
+
+# Model configuration
+model:
+  type: "itera_lite"
+  config: "tiny"  # 886K parameters
+  vocab_size: 274  # WikiText-103 char-level vocab
+
+# Dataset
+dataset:
+  name: "wikitext103"
+  path: "data/wikitext103"
+  seq_length: 128  # Sequence length for training
+
+# Training hyperparameters
+training:
+  # Batch size
+  batch_size: 16  # Smaller for initial test
+  gradient_accumulation_steps: 8  # Effective batch size = 128
+
+  # Learning rate
+  learning_rate: 0.001  # 1e-3, good starting point
+  warmup_steps: 500  # Gradual warmup
+  lr_schedule: "cosine"  # Cosine decay
+  min_lr: 0.00005  # 5e-5, minimum learning rate
+
+  # Training duration
+  max_epochs: 1500  # Train for quality, can stop early
+  max_steps: null  # null = train for max_epochs
+
+  # Regularization
+  weight_decay: 0.01  # Modest weight decay
+  dropout: 0.1  # From model config
+  max_grad_norm: 1.0  # Gradient clipping
+
+# Validation & Checkpointing
+evaluation:
+  eval_every_epochs: 5  # Validate every 5 epochs (more frequent initially)
+  eval_every_steps: null  # null = use epochs
+  save_every_epochs: 25  # Save checkpoint every 25 epochs
+  keep_best_n: 3  # Keep best 3 checkpoints
+
+# Early stopping
+early_stopping:
+  enabled: true
+  patience: 50  # Stop if no improvement for 50 epochs
+  min_delta: 0.01  # Minimum improvement threshold
+  metric: "val_perplexity"  # Monitor validation perplexity
+
+# Generation sampling (quality assessment)
+generation:
+  enabled: true
+  every_epochs: 10  # Generate samples every 10 epochs (more frequent)
+  num_samples: 3  # Number of prompts to test
+  max_new_tokens: 80  # Generate up to 80 tokens
+  temperature: 0.8  # Sampling temperature
+  prompts:
+    - "The history of"
+    - "In the year"
+    - "Scientists have discovered"
+    - "The United States"
+    - "According to the"
+
+# Logging
+logging:
+  use_tensorboard: true
+  tensorboard_dir: "runs"
+  csv_backup: true
+  csv_dir: "results"
+  print_every: 100  # Print stats every 100 steps
+
+# Checkpoints
+checkpoints:
+  dir: "checkpoints/wikitext103_training"
+  save_optimizer: true  # Save optimizer state for resuming
+  save_scheduler: true  # Save scheduler state
+
+# Hardware
+hardware:
+  device: "cpu"  # Change to "cuda" if GPU available
+  num_workers: 0  # Data loading workers (0 for CPU)
+  pin_memory: false  # GPU optimization
+
+# Mixed precision (if using GPU)
+mixed_precision:
+  enabled: false  # Set to true for GPU with AMP
+  dtype: "float16"  # or "bfloat16"
+
+# Reproducibility
+seed: 42
+
+# Estimated training time (CPU @ 1000 tokens/sec):
+# - 1 epoch: ~150 hours (6.25 days)
+# - 2000 epochs: ~300,000 hours (12,500 days)
+#
+# IMPORTANT: This is an overestimate. Actual training on this dataset
+# would require GPU or a smaller subset. Consider:
+# 1. Using GPU (100x faster): ~125 hours total for 2000 epochs
+# 2. Training on subset (10% of data): ~30 hours on CPU
+# 3. Reducing epochs to 200-500 with early stopping
+#
+# For practical CPU training, see: training_config_tinystories.yaml
